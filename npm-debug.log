@@ -1,46 +1,34 @@
 0 info it worked if it ends with ok
-1 verbose cli [ 'C:\\Program Files (x86)\\nodejs\\node.exe',
-1 verbose cli   'C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
-1 verbose cli   'search',
-1 verbose cli   'PhantomJS' ]
-2 info using npm@1.4.28
-3 info using node@v0.10.33
-4 info get C:\Users\Scorchman\AppData\Roaming\npm-cache\npm.smartsparrow.com\-\all/.cache.json
-5 warn Building the local index for the first time, please be patient
-6 verbose request where is /-/all
-7 verbose request registry http://npm.smartsparrow.com/
-8 verbose request id 214f58eb51754354
-9 verbose url raw /-/all
-10 verbose url resolving [ 'http://npm.smartsparrow.com/', './-/all' ]
-11 verbose url resolved http://npm.smartsparrow.com/-/all
-12 verbose request where is http://npm.smartsparrow.com/-/all
-13 info trying registry request attempt 1 at 15:39:31
-14 http GET http://npm.smartsparrow.com/-/all
-15 http 404 http://npm.smartsparrow.com/-/all
-16 verbose headers { 'x-powered-by': 'Express',
-16 verbose headers   'content-type': 'application/json',
-16 verbose headers   'content-length': '51',
-16 verbose headers   etag: '"677625400"',
-16 verbose headers   'set-cookie': [ 'nopar=s%3AvnVVIolMuBwolZmqpsCSefWA.uVdheRorayNdEyzuiP8pDYgCx%2B%2FQ7yqjcvhQPjJSqsE; Path=/; HttpOnly' ],
-16 verbose headers   date: 'Thu, 12 Mar 2015 04:39:23 GMT',
-16 verbose headers   connection: 'keep-alive' }
-17 error Error: not_found document not found: -/all
-17 error     at RegClient.<anonymous> (C:\Program Files (x86)\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:308:14)
-17 error     at Request._callback (C:\Program Files (x86)\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:246:65)
-17 error     at Request.self.callback (C:\Program Files (x86)\nodejs\node_modules\npm\node_modules\request\request.js:236:22)
-17 error     at Request.emit (events.js:98:17)
-17 error     at Request.<anonymous> (C:\Program Files (x86)\nodejs\node_modules\npm\node_modules\request\request.js:1142:14)
-17 error     at Request.emit (events.js:117:20)
-17 error     at IncomingMessage.<anonymous> (C:\Program Files (x86)\nodejs\node_modules\npm\node_modules\request\request.js:1096:12)
-17 error     at IncomingMessage.emit (events.js:117:20)
-17 error     at _stream_readable.js:943:16
-17 error     at process._tickCallback (node.js:419:13)
-18 error If you need help, you may report this *entire* log,
-18 error including the npm and node versions, at:
-18 error     <http://github.com/npm/npm/issues>
-19 error System Windows_NT 6.1.7601
-20 error command "C:\\Program Files (x86)\\nodejs\\node.exe" "C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "search" "PhantomJS"
-21 error cwd C:\cygwin\home\Scorchman\sparrow\unsw-eng-friction
-22 error node -v v0.10.33
-23 error npm -v 1.4.28
-24 verbose exit [ 1, true ]
+1 verbose cli [ 'node',
+1 verbose cli   '/home/Scorchman/node/bin/npm',
+1 verbose cli   'uninstall',
+1 verbose cli   'phantomjs' ]
+2 info using npm@2.0.2
+3 info using node@v0.10.30
+4 verbose node symlink /home/Scorchman/node/bin/node
+5 verbose node_modules/phantomjs unbuild
+6 info preuninstall phantomjs@1.9.16
+7 info uninstall phantomjs@1.9.16
+8 verbose true,/home/Scorchman/sparrow/unsw-eng-friction/node_modules,/home/Scorchman/sparrow/unsw-eng-friction/node_modules unbuild phantomjs@1.9.16
+9 verbose /home/Scorchman/sparrow/unsw-eng-friction/node_modules/.bin,[object Object] binRoot
+10 verbose gentlyRm verifying that /home/Scorchman/sparrow/unsw-eng-friction/node_modules/phantomjs is managed by npm
+11 silly cacheAndTest /home/Scorchman/sparrow/unsw-eng-friction/node_modules/phantomjs is inside /home/Scorchman/sparrow/unsw-eng-friction/node_modules
+12 silly gentlyRm /home/Scorchman/sparrow/unsw-eng-friction/node_modules/phantomjs is managed by npm
+13 silly gentlyRm /home/Scorchman/sparrow/unsw-eng-friction/node_modules/.bin/phantomjs is not under /home/Scorchman/sparrow/unsw-eng-friction/node_modules/phantomjs
+14 silly gentlyRm checking to see if /home/Scorchman/sparrow/unsw-eng-friction/node_modules/.bin/phantomjs is a link
+15 verbose gentlyRm /home/Scorchman/sparrow/unsw-eng-friction/node_modules/.bin/phantomjs is outside /home/Scorchman/sparrow/unsw-eng-friction/node_modules/phantomjs and not a link
+16 verbose stack Error: Refusing to delete: /home/Scorchman/sparrow/unsw-eng-friction/node_modules/.bin/phantomjs not in /home/Scorchman/sparrow/unsw-eng-friction/node_modules/phantomjs
+16 verbose stack     at clobberFail (/home/Scorchman/node-v0.10.30-linux-x86/lib/node_modules/npm/lib/utils/gently-rm.js:162:12)
+16 verbose stack     at /home/Scorchman/node-v0.10.30-linux-x86/lib/node_modules/npm/lib/utils/gently-rm.js:73:16
+16 verbose stack     at Object.oncomplete (evalmachine.<anonymous>:107:15)
+17 verbose cwd /home/Scorchman/sparrow/unsw-eng-friction
+18 error Linux 3.13.0-39-generic
+19 error argv "node" "/home/Scorchman/node/bin/npm" "uninstall" "phantomjs"
+20 error node v0.10.30
+21 error npm  v2.0.2
+22 error path /home/Scorchman/sparrow/unsw-eng-friction/node_modules/.bin/phantomjs
+23 error code EEXIST
+24 error Refusing to delete: /home/Scorchman/sparrow/unsw-eng-friction/node_modules/.bin/phantomjs not in /home/Scorchman/sparrow/unsw-eng-friction/node_modules/phantomjs
+File exists: /home/Scorchman/sparrow/unsw-eng-friction/node_modules/.bin/phantomjs
+Move it away, and try again.
+25 verbose exit [ 1, true ]
