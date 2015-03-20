@@ -534,14 +534,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-bless");
     grunt.loadNpmTasks("grunt-template-file");
     grunt.loadNpmTasks("grunt-parallel");
-    grunt.loadNpmTasks("grunt-generator");
+    grunt.loadNpmTasks("grunt-build-generator");
 
 
     // Define grunt tasks
     var watchToUse = 'parallel:' + (process.env.gruntWatch || '') + 'watch';
     grunt.registerTask("localTemplate", ["templateFile:local","templateFile:localCSS","templateFile:localEnvironment"]);
     grunt.registerTask("local", ["clean:local","jshint","copy:localCompile","less:local","bless:local","localTemplate","mocha:dot"]);
-    //grunt.registerTask("local", ["clean:local","jshint","copy:localCompile","less:local","bless:local","localTemplate"]);
     grunt.registerTask("localStyle", ["clean:local","copy:localCompile","less:local","bless:local","localTemplate"]);
     grunt.registerTask("localCopyOnly", ["clean:local","copy:localCompile","less:local","bless:local","localTemplate"]);
     grunt.registerTask("localTestFirst", ["clean:local","copy:localCompile","less:local","bless:local","localTemplate","mocha:dot","jshint"]);

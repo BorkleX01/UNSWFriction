@@ -14,8 +14,6 @@ define (function(require){
 
     function init(){
 
-        //$("#truck").draggable({ axis: "x" });
-        //leaving this here for now so I can use later.
         
     }
 
