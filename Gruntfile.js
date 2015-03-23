@@ -548,6 +548,6 @@ module.exports = function(grunt) {
     grunt.registerTask("default", ["local",watchToUse]);
     grunt.registerTask("copyOnlyWatch", ["localCopyOnly","parallel:copywatch"]);
     grunt.registerTask("tddWatch", ["localTestFirst","parallel:tddwatch"]);
-    grunt.registerTask("build", ["gruntGenerator"]);
+    grunt.registerTask("build", ["grunt-generator"]);
 
 };

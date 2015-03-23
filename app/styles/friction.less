@@ -1,0 +1,60 @@
+body {
+    background-color: #e3e9ea;
+    width: 525 px;
+    height: 500px;
+}
+#body-mask {
+    width: 525px;
+    height: 500px;
+    overflow: hidden;
+    position: relative;
+}
+#truck_surface {
+    position: absolute;
+    left: 163px;
+    top: 115px;
+    width: 800px;
+    height: 450px;
+    background-image: url("@{imgPath}/slope-angle.png");
+    transform-origin: 0% 50%;
+}
+#truck {
+    width: 109px;
+    height: 118px;
+    top: 107px;
+    background-image: url("@{imgPath}/Truck.png");
+    background-repeat: no-repeat;
+}
+#car {
+    position: absolute;
+    left: 65px;
+    top: 342px;
+    width: 40px;
+    height: 116px;
+    background-image: url("@{imgPath}/car.png");
+}
+.rotates {
+   -webkit-transform: rotate(-30deg);
+   -moz-transform: rotate(-30deg);
+   -ms-transform: rotate(-30deg);
+}
+#slope-base {
+    position: absolute;
+    top: 340px;
+    left: 165px;
+    width: 800px;
+    height: 225px;
+    background-image: url("@{imgPath}/slope-base.png");
+}
+#car-mass-text {
+    font-family: 'Roboto', sans-serif;
+    position: absolute;
+    top: 382px;
+    left: 110px;
+}
+#truck-mass-text {
+    font-family: 'Roboto', sans-serif;
+    width: 110px;
+    position: absolute;
+    left: 110px;
+}

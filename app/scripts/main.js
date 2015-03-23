@@ -1,6 +1,7 @@
-/*globals checkBrowser, document*/
+/*globals checkBrowser, document, console*/
 define (function(require){
     var $ = require('jquery');
+    var ui = require('jquery-ui');
     var $body;
 
     require('sim-common/Detect');
@@ -12,6 +13,8 @@ define (function(require){
     var Transporter = require('api/snapshot/Transporter').getInstance();
 
     function init(){
+
+        
     }
 
     function loadInitial(){
@@ -30,3 +33,4 @@ define (function(require){
         loadInitial();
     });
 });
+

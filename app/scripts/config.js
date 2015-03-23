@@ -18,6 +18,7 @@ requirejs.config({
     'paths': {
         'text': '../../../bower_components/requirejs-text/text',
         'jquery': '../../../bower_components/jquery/dist/jquery',
+        'jquery-ui': '../../../bower_components/jquery-ui/jquery-ui',
         'underscore': '../../../bower_components/underscore/underscore',
         'backbone': '../../../bower_components/backbone/backbone',
 
