@@ -91,7 +91,7 @@ body {
     left: 0%;
     top: -5px;
 }
-#dotted-line-to-truck-below {
+#dotted-line-to-truck-below {x52
     position: absolute;
     left: -4px;
     transform-origin: 0%;
