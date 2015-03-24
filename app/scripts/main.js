@@ -1,7 +1,11 @@
-/*globals checkBrowser, document, console*/
+/*globals checkBrowser, document, console, window*/
 define (function(require){
     var $ = require('jquery');
     var ui = require('jquery-ui');
+	    var AppModel = require('AppModel');
+	    var Capi = require('Capi');
+	    var BaseDistances = require('BaseDistances');
+	    
     var $body;
 
     require('sim-common/Detect');
@@ -13,7 +17,17 @@ define (function(require){
     var Transporter = require('api/snapshot/Transporter').getInstance();
 
     function init(){
+        
 
+        console.log("width: "+$("#distance-to-car-label").width());
+        console.log("width: "+$("#distance-to-leg-label").width());
+        console.log("pos: "+$("#notch-at-leg").position().left);
+
+	
+	var appModel = new AppModel();
+	var capi = new Capi();
+	new BaseDistances($('#distance-to-car-label'), $('#distance-to-leg-label'), capi, appModel);
+	capi.expose(BackboneAdapter);
         
     }
 
@@ -31,6 +45,7 @@ define (function(require){
         }
 
         loadInitial();
+
     });
 });
 
