@@ -19,11 +19,6 @@ define (function(require){
     function init(){
         
 
-        console.log("width: "+$("#distance-to-car-label").width());
-        console.log("width: "+$("#distance-to-leg-label").width());
-        console.log("pos: "+$("#notch-at-leg").position().left);
-
-	
 	var appModel = new AppModel();
 	var capi = new Capi();
 	new BaseDistances($('#distance-to-car-label'), $('#distance-to-leg-label'), capi, appModel);
