@@ -23,34 +23,50 @@
 </head>
 
 <body>
-        <div id="body-mask">
-            <div id="car">
-            </div>
-            <div id="truck_surface" class="rotates-with-slope">
-                <div id="truck"> 
-                    <div id="truck-mass-text">Mass
-                      <br/><span style="font-weight: 300;">2510 kg</span></div>
+    <div id="body-mask">
+        <div id="car">
+        </div>
+        <div id="truck_surface" class="rotates-with-slope">
+            <div id="support-legs">
+                <div id="left-leg">
+                    <div id="legL"></div>
+                    <div id="footL"></div>
+                </div>
+                <div id="right-leg">
+                    <div id="footR"></div>
+                    <div id="legR"></div>
+
                 </div>
             </div>
-            <div id="slope-base"></div>
+            <div id="truck">
+                <div id="truck-mass-text">Mass
+                    <br/><span style="font-weight: 300;">2510 kg</span>
+                </div>
 
-            <div id="car-mass-text">Mass
-                <br/><span style="font-weight: 300;">1700 kg</span></div>
-            <div id="total-distance">
-            <div id="truck-to-car-distance-measure">
-              <div id="notch-at-truck">
-                <div id="dotted-line-to-truck-below" class="rotated90">......................................................................</div>
-              </div>
-              <div id="notch-at-leg">
-                <div id="dotted-line-to-leg-below" class="rotated90">......................................................................</div>
-                <div id="distance-to-leg-label">9999</div>
-              </div>
-              <div id="notch-at-car">
-                <div id="distance-to-car-label">9999</div>                                
-              </div>
+
             </div>
+
+        </div>
+        <div id="slope-base"></div>
+
+        <div id="car-mass-text">Mass
+            <br/><span style="font-weight: 300;">1700 kg</span>
+        </div>
+        <div id="total-distance">
+            <div id="truck-to-car-distance-measure">
+                <div id="notch-at-truck">
+                    <div id="dotted-line-to-truck-below" class="rotated90">......................................................................</div>
+                </div>
+                <div id="notch-at-leg">
+                    <div id="dotted-line-to-leg-below" class="rotated90">......................................................................</div>
+                    <div id="distance-to-leg-label">9999</div>
+                </div>
+                <div id="notch-at-car">
+                    <div id="distance-to-car-label">9999</div>
+                </div>
             </div>
         </div>
+    </div>
     <%=requireScript %>
 </body>
 

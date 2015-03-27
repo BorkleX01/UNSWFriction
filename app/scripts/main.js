@@ -3,8 +3,8 @@ define (function(require){
     var $ = require('jquery');
     var ui = require('jquery-ui');
 	    var AppModel = require('AppModel');
-	    var Capi = require('Capi');
-	    var BaseDistances = require('BaseDistances');
+
+	    var horizontalDistances = require('HorizontalDistances');
 	    
     var $body;
 
@@ -20,9 +20,9 @@ define (function(require){
         
 
 	var appModel = new AppModel();
-	var capi = new Capi();
-	new BaseDistances($('#distance-to-car-label'), $('#distance-to-leg-label'), capi, appModel);
-	capi.expose(BackboneAdapter);
+
+	horizontalDistances($('#distance-to-car-label'), $('#distance-to-leg-label'), appModel);
+
         
     }
 

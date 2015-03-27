@@ -22,8 +22,11 @@ define(function(require) {
         return model.getCarDistanceFromEdge() + horizontal_distance_left_support_from_edge(model);
     };
 
+
+
     
-    return function($toCar, $toLeg, capi, model) {
+    return function($toCar, $toLeg,  model) {
+        this.model = model;
         $toLeg.text(horizontal_distance_truck_from_support(model).toFixed(2));
         $toCar.text(horizontal_distance_car_from_support(model).toFixed(2));
         var middleNotchPlacementRatio = horizontal_distance_truck_from_support(model)/horizontal_distance_car_from_support(model);
@@ -35,6 +38,8 @@ define(function(require) {
         var offsetHor = $('#notch-at-leg').offset().left - $('#slope-base').offset().left;
         var offsetVer = Math.tan(30 * Math.PI/180)*offsetHor;
         $('#dotted-line-to-leg-below').width(465-340+offsetVer+3);
+
+        
                                                                                                   
     };
 });
