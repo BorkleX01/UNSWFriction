@@ -22,10 +22,25 @@ define(function(require) {
             expect(hDists.horizontal_distance_truck_from_edge(model)).to.be.below(model.getTruckDistanceFromEdge());
         });
 
+        it('Truck from edge horizontal measure should be 3.08 if truck is 5 meters from edge:', function() {
+            
+            model.setTruckDistanceFromEdge(5);
+            expect(hDists.horizontal_distance_truck_from_edge(model)).to.be.within(3 , 4);
+            console.log(hDists.horizontal_distance_truck_from_edge(model));
+        });
+
         it('Left support from edge sane trigonometry', function() {
 
             expect(hDists.horizontal_distance_left_support_from_edge(model)).to.be.below(
                 model.getTruckDistanceFromEdge() - model.getSideSupportLength());
+            
+        });
+        it('Left support from edge ', function() {
+
+            model.setTruckDistanceFromEdge(4);
+            model.setSideSupportLength(3);
+            expect(hDists.horizontal_distance_left_support_from_edge(model)).to.be.within(0.8, 0.9);
+            
         });
 
         it('Horizontal extention of support leg is the horizontal distances of the truck from the edge minus that of the leg from the edge', function() {
