@@ -19,19 +19,20 @@ define(function(require) {
         });
 
         it('Truck from edge horizontal measure sane trigonometry', function() {
-            expect(hDists.horizontal_distance_truck_from_edge(model)).to.be.below(model.getTruckDistanceFromEdge());
+            expect(hDists.horizontal_distance_truck_from_edge(model)).to.be.at.most(model.getTruckDistanceFromEdge());
         });
 
-        it('Truck from edge horizontal measure should be 3.08 if truck is 5 meters from edge:', function() {
+        it('Truck from edge horizontal measure should be 3.08 if truck is 5 meters from edge at 30degrees:', function() {
             
             model.setTruckDistanceFromEdge(5);
+            model.setSlopeAngle(30);
             expect(hDists.horizontal_distance_truck_from_edge(model)).to.be.within(3 , 4);
-            console.log(hDists.horizontal_distance_truck_from_edge(model));
+
         });
 
         it('Left support from edge sane trigonometry', function() {
 
-            expect(hDists.horizontal_distance_left_support_from_edge(model)).to.be.below(
+            expect(hDists.horizontal_distance_left_support_from_edge(model)).to.be.at.most(
                 model.getTruckDistanceFromEdge() - model.getSideSupportLength());
             
         });
@@ -39,6 +40,7 @@ define(function(require) {
 
             model.setTruckDistanceFromEdge(4);
             model.setSideSupportLength(3);
+            model.setSlopeAngle(30);
             expect(hDists.horizontal_distance_left_support_from_edge(model)).to.be.within(0.8, 0.9);
             
         });
