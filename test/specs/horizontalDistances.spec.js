@@ -23,10 +23,10 @@ define(function(require) {
         });
 
         it('Truck from edge horizontal measure should be 3.08 if truck is 5 meters from edge at 30degrees:', function() {
-            
+
             model.setTruckDistanceFromEdge(5);
             model.setSlopeAngle(30);
-            expect(hDists.horizontal_distance_truck_from_edge(model)).to.be.within(3 , 4);
+            expect(hDists.horizontal_distance_truck_from_edge(model)).to.be.within(3, 4);
 
         });
 
@@ -34,7 +34,7 @@ define(function(require) {
 
             expect(hDists.horizontal_distance_left_support_from_edge(model)).to.be.at.most(
                 model.getTruckDistanceFromEdge() - model.getSideSupportLength());
-            
+
         });
         it('Left support from edge ', function() {
 
@@ -42,7 +42,7 @@ define(function(require) {
             model.setSideSupportLength(3);
             model.setSlopeAngle(30);
             expect(hDists.horizontal_distance_left_support_from_edge(model)).to.be.within(0.8, 0.9);
-            
+
         });
 
         it('Horizontal extention of support leg is the horizontal distances of the truck from the edge minus that of the leg from the edge', function() {
