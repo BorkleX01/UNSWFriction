@@ -21,7 +21,7 @@ define (function(require){
 
 	var appModel = new AppModel();
 
-	horizontalDistances($('#distance-to-car-label'), $('#distance-to-leg-label'), appModel);
+	horizontalDistances(appModel);
 
         
     }

@@ -8,6 +8,7 @@ define(function(require) {
         var hDists = null;
         var appModel = null;
         var model = null;
+        /*
         beforeEach(function() {
             appModel = new AppModel();
             hDists = new HorizontalDistances($('#distance-to-car-label'), $('#distance-to-leg-label'), appModel);
@@ -60,7 +61,7 @@ define(function(require) {
                     model.getCarDistanceFromEdge() + hDists.horizontal_distance_left_support_from_edge(model)
                 );
         });
-
+        */
 
     });
 });
