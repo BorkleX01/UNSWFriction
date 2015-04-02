@@ -28,13 +28,11 @@ define(function(require) {
     };
     var drawDottedLineToLeftSupport = function() {
         var notch_at_leg_offset = $('#notch-at-leg').offset();
-        if (notch_at_leg_offset === undefined) {
-            notch_at_leg_offset = 0;
-        }
+        
         var slope_base_offset = $('#slope-base').offset();
-        if (slope_base_offset === undefined) {
+        /*if (slope_base_offset === undefined) {
             slope_base_offset = 0;
-        }
+        }*/
 
         var horizontals_y_positon = $('#horizontal-distances').position();
         if (horizontals_y_positon === undefined) {

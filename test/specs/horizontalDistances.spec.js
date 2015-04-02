@@ -10,13 +10,16 @@ define(function(require) {
         var model = null;
 
         var car = document.createElement('div');
-            car.id = "distance-to-car-label";
-            car.innerHTML = "before";
-            document.body.appendChild(car);
-            var leg = document.createElement('div');
-            leg.id = "distance-to-leg-label";
-            leg.innerHTML = "before";
-            document.body.appendChild(leg);
+        car.id = "distance-to-car-label";
+        car.innerHTML = "before";
+        document.body.appendChild(car);
+        var leg = document.createElement('div');
+        leg.id = "distance-to-leg-label";
+        leg.innerHTML = "before";
+        document.body.appendChild(leg);
+        var slopeBase = document.createElement('div');
+        slopeBase.id = "slope-base"; 
+        document.body.appendChild(slopeBase);
         
         beforeEach(function() {
             appModel = new AppModel();
