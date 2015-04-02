@@ -1,3 +1,3 @@
 define([
-    'specs/example.spec'
+    'specs/horizontalDistances.spec'
 ]);

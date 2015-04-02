@@ -1,7 +1,11 @@
-/*globals checkBrowser, document, console*/
+/*globals checkBrowser, document, console, window*/
 define (function(require){
     var $ = require('jquery');
     var ui = require('jquery-ui');
+	    var AppModel = require('AppModel');
+
+	    var horizontalDistances = require('HorizontalDistances');
+	    
     var $body;
 
     require('sim-common/Detect');
@@ -13,6 +17,11 @@ define (function(require){
     var Transporter = require('api/snapshot/Transporter').getInstance();
 
     function init(){
+        
+
+	var appModel = new AppModel();
+
+	horizontalDistances(appModel);
 
         
     }
@@ -31,6 +40,7 @@ define (function(require){
         }
 
         loadInitial();
+
     });
 });
 
