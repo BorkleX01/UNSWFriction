@@ -4,6 +4,7 @@ define(function(require) {
     var $ = require('jquery');
 
     return function(model) {
+        
 
         var horizontal_distance_truck_from_edge = function(model) {
 
@@ -26,6 +27,7 @@ define(function(require) {
         };
 
         var drawDottedLineToLeftSupport = function() {
+
             var notch_at_leg_offset = $('#notch-at-leg').offset();
             if (notch_at_leg_offset === undefined) {
                 notch_at_leg_offset = 0;
@@ -57,16 +59,14 @@ define(function(require) {
 
         $('#distance-to-car-label').text(horizontal_distance_car_from_support(model).toFixed(2));
         var toCarTextFieldWidth = $("#truck-to-car-distance-measure").width() - middleNotchPostionRight;
-        $('#distance-to-car-label').css({
-            "width": +toCarTextFieldWidth + "px"
-        });
-        $('#distance-to-leg-label').css({
-            "width": +middleNotchPostionRight + "px"
-        });
+        $('#distance-to-car-label').width(toCarTextFieldWidth);
+
+        $('#distance-to-leg-label').width(middleNotchPostionRight);
+
 
         $('#distance-to-leg-label').text(horizontal_distance_truck_from_support(model).toFixed(2));
         $('#distance-to-car-label').text(horizontal_distance_car_from_support(model).toFixed(2));
         drawDottedLineToLeftSupport();
-
+        return function(){console.log("return");};
     };
 });

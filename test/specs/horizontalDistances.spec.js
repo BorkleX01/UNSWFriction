@@ -1,67 +1,47 @@
-/*global hDists, console*/
+/*global hDists, console, document*/
 /*jshint expr: true*/
 define(function(require) {
     var $ = require('jquery');
     describe('Horizontal distances', function() {
-        var HorizontalDistances = require('HorizontalDistances');
+        var horizontalDistances = require('HorizontalDistances');
         var AppModel = require('AppModel');
         var hDists = null;
         var appModel = null;
         var model = null;
-        /*
+
+        var car = document.createElement('div');
+            car.id = "distance-to-car-label";
+            car.innerHTML = "before";
+            document.body.appendChild(car);
+            var leg = document.createElement('div');
+            leg.id = "distance-to-leg-label";
+            leg.innerHTML = "before";
+            document.body.appendChild(leg);
+        
         beforeEach(function() {
             appModel = new AppModel();
-            hDists = new HorizontalDistances($('#distance-to-car-label'), $('#distance-to-leg-label'), appModel);
-            model = hDists.model;
+            hDists =  horizontalDistances(appModel);
+            model = appModel;
+
+            
         });
 
-        it('model present', function() {
+        it('has a functional model', function() {
             expect(model).to.be.ok;
         });
 
-        it('Truck from edge horizontal measure sane trigonometry', function() {
-            expect(hDists.horizontal_distance_truck_from_edge(model)).to.be.at.most(model.getTruckDistanceFromEdge());
-        });
-
-        it('Truck from edge horizontal measure should be 3.08 if truck is 5 meters from edge at 30degrees:', function() {
-
-            model.setTruckDistanceFromEdge(5);
+        it('returns these figures and places them in text fields', function (){
+            model.setTruckDistanceFromEdge(7.5);
             model.setSlopeAngle(30);
-            expect(hDists.horizontal_distance_truck_from_edge(model)).to.be.within(3, 4);
+            model.setSideSupportLength(5);
+            
+            $(document).ready(function(){
+                expect($('#distance-to-car-label').html()).to.equal('7.17');
+                expect($('#distance-to-leg-label').html()).to.equal('3.08');
+            });
+            
 
         });
-
-        it('Left support from edge sane trigonometry', function() {
-
-            expect(hDists.horizontal_distance_left_support_from_edge(model)).to.be.at.most(
-                model.getTruckDistanceFromEdge() - model.getSideSupportLength());
-
-        });
-        it('Left support from edge ', function() {
-
-            model.setTruckDistanceFromEdge(4);
-            model.setSideSupportLength(3);
-            model.setSlopeAngle(30);
-            expect(hDists.horizontal_distance_left_support_from_edge(model)).to.be.within(0.8, 0.9);
-
-        });
-
-        it('Horizontal extention of support leg is the horizontal distances of the truck from the edge minus that of the leg from the edge', function() {
-
-            expect(hDists.horizontal_distance_truck_from_support(model))
-                .to.equal(
-                    hDists.horizontal_distance_truck_from_edge(model) - hDists.horizontal_distance_left_support_from_edge(model)
-                );
-        });
-
-        it('Horizontal distance of car from leg is model car from edge value plus calculated hor distance of support from edge ', function() {
-
-            expect(hDists.horizontal_distance_car_from_support(model))
-                .to.equal(
-                    model.getCarDistanceFromEdge() + hDists.horizontal_distance_left_support_from_edge(model)
-                );
-        });
-        */
-
+        
     });
 });
