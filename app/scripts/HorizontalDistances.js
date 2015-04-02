@@ -54,7 +54,8 @@ define(function(require) {
 
 
 
-    return function($toCar, $toLeg, model) {
+    return function(model) {
+
         var middleNotchPlacementRatio = horizontal_distance_truck_from_support(model) / (horizontal_distance_truck_from_support(model) + horizontal_distance_car_from_support(model));
         var middleNotchPostionRight = middleNotchPlacementRatio * $("#truck-to-car-distance-measure").width();
 
@@ -71,10 +72,10 @@ define(function(require) {
             "width": +middleNotchPostionRight + "px"
         });
 
-
-        updateHorizontalDistances(model);
-        $toLeg.text(horizontal_distance_truck_from_support(model).toFixed(2));
-        $toCar.text(horizontal_distance_car_from_support(model).toFixed(2));
+        drawDottedLineToLeftSupport();
+        
+        $('#distance-to-leg-label').text(horizontal_distance_truck_from_support(model).toFixed(2));
+        $('#distance-to-car-label').text(horizontal_distance_car_from_support(model).toFixed(2));
 
     };
 });
