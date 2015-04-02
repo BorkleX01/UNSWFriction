@@ -17,9 +17,16 @@ define(function(require) {
         leg.id = "distance-to-leg-label";
         leg.innerHTML = "before";
         document.body.appendChild(leg);
+        var legNotch = document.createElement('div');
+        legNotch.id = "notch-at-leg"; 
+        document.body.appendChild(legNotch);
         var slopeBase = document.createElement('div');
         slopeBase.id = "slope-base"; 
         document.body.appendChild(slopeBase);
+
+        var horDistances = document.createElement('div');
+        horDistances.id = "horizontal-distances"; 
+        document.body.appendChild(horDistances);
         
         beforeEach(function() {
             appModel = new AppModel();

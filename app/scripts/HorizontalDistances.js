@@ -30,20 +30,11 @@ define(function(require) {
         var notch_at_leg_offset = $('#notch-at-leg').offset();
         
         var slope_base_offset = $('#slope-base').offset();
-        /*if (slope_base_offset === undefined) {
-            slope_base_offset = 0;
-        }*/
 
         var horizontals_y_positon = $('#horizontal-distances').position();
-        if (horizontals_y_positon === undefined) {
-            horizontals_y_positon = 0;
-        }
 
         var slope_base = $('#slope-base').position();
-        if (slope_base === undefined) {
-            slope_base = 0;
-        }
-
+        
         var offsetHor = notch_at_leg_offset.left - slope_base_offset.left;
         var offsetVer = Math.tan(30 * Math.PI / 180) * offsetHor;
         $('#dotted-line-to-leg-below').width(horizontals_y_positon.top - slope_base.top + offsetVer + 3);
