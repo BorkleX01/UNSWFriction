@@ -2,9 +2,13 @@
 define (function(require){
     var $ = require('jquery');
     var ui = require('jquery-ui');
-	    var AppModel = require('AppModel');
+    var AppModel = require('AppModel');
+    var Capi = require('Capi');
+    
+    //var horizontalDistances = require('HorizontalDistances');
+    var truck = require('Truck');
+    var capi = new Capi();
 
-	    var horizontalDistances = require('HorizontalDistances');
 	    
     var $body;
 
@@ -21,7 +25,10 @@ define (function(require){
 
 	var appModel = new AppModel();
 
-	horizontalDistances(appModel);
+	//horizontalDistances($('#distance-to-car-label'), $('#distance-to-leg-label'), appModel);
+	//horizontalDistances(appModel);
+	//truck($('#draggable-truck'), $('#truck-to-car-distance-measure'), $('#truck-distance'),capi, appModel);
+	truck(appModel, capi);
 
         
     }
