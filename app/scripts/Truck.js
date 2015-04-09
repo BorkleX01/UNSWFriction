@@ -8,10 +8,8 @@ define(function(require) {
     var drawDottedLines = function() {
 
         var truckPos = $('#draggable-truck').position();
-        $('#truck-distance').width(truckPos.left + 205);
-
-        var hDistWidth = ($('#draggable-truck').position().left / Math.cos(this.model.getSlopeAngle() * Math.PI / 180)) * Math.cos(this.model.getSlopeAngle() * Math.PI / 180);
-        $('#truck-to-car-distance-measure').width(225 + hDistWidth);
+        $('#truck-distance').width((truckPos.left+179)/Math.cos(this.model.getSlopeAngle() * Math.PI / 180));
+        $('#truck-to-car-distance-measure').width(225 + truckPos.left);
         
         var notch_at_leg_offset = $('#notch-at-leg').offset();
         
@@ -40,9 +38,11 @@ define(function(require) {
 
         this.capi.setTruckDistanceFromEdge(distance);
 
-        $('#draggable-truck').css({
-            left: distance * 25 - 200
-        });
+        if (!dragging){
+            $('#draggable-truck').css({
+                left: distance * 25 - 200
+            });
+        }
 
         $('#truck-to-edge').val(Number(distance).toFixed(1));
 
@@ -61,6 +61,8 @@ define(function(require) {
         horizontalDistances(model);
     };
 
+    var dragging = false;
+    
     return function(model, capi) {
         this.model = model;
         this.capi = capi;
@@ -75,7 +77,13 @@ define(function(require) {
             axis: "x",
             drag: function(event, ui){
                updateOnDrag(model);
-           }
+            },
+            start: function(event, ui){
+                dragging = true;
+            },
+            stop: function(event, ui){
+                dragging = false;
+            }
         });
 
         model.on('change:truckDistanceFromEdge', updateTruckDistanceFromEdge, this);
