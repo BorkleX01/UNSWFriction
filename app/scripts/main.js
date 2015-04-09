@@ -23,12 +23,9 @@ define (function(require){
     function init(){
         
 
-	var appModel = new AppModel();
+	var model = new AppModel();
 
-	//horizontalDistances($('#distance-to-car-label'), $('#distance-to-leg-label'), appModel);
-	//horizontalDistances(appModel);
-	//truck($('#draggable-truck'), $('#truck-to-car-distance-measure'), $('#truck-distance'),capi, appModel);
-	truck(appModel, capi);
+	truck(model, capi);
 
         
     }
