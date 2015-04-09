@@ -4,10 +4,12 @@ define(function(require) {
     var $ = require('jquery');
     var ui = require('jquery-ui');
     var horizontalDistances = require('HorizontalDistances');
+    var $draggable_truck = $('#draggable-truck');
+    this.$draggable_truck = $draggable_truck;
 
     var drawDottedLines = function() {
 
-        var truckPos = $('#draggable-truck').position();
+        var truckPos = $draggable_truck.position();
         $('#truck-distance').width((truckPos.left+179)/Math.cos(this.model.getSlopeAngle() * Math.PI / 180));
         $('#truck-to-car-distance-measure').width(225 + truckPos.left);
         
@@ -39,7 +41,7 @@ define(function(require) {
         this.capi.setTruckDistanceFromEdge(distance);
 
         if (!dragging){
-            $('#draggable-truck').css({
+            $draggable_truck.css({
                 left: distance * 25 - 200
             });
         }
@@ -49,14 +51,14 @@ define(function(require) {
         var truckPos = $('#draggable-truck').position();
         $('#truck-distance-input').width(truckPos.left + 205);
 
-        var hDistWidth = ($('#draggable-truck').position().left / Math.cos(this.model.getSlopeAngle() * Math.PI / 180)) * Math.cos(this.model.getSlopeAngle() * Math.PI / 180);
+        var hDistWidth = (truckPos.left / Math.cos(this.model.getSlopeAngle() * Math.PI / 180)) * Math.cos(this.model.getSlopeAngle() * Math.PI / 180);
         $('#distance-to-car-label').width(225 + hDistWidth);
         drawDottedLines();
 
     };
 
     var updateOnDrag = function(model){
-        model.setTruckDistanceFromEdge(($('#draggable-truck').position().left + 200) / 25);
+        model.setTruckDistanceFromEdge(($draggable_truck.position().left + 200) / 25);
         drawDottedLines();
         horizontalDistances(model);
     };
@@ -73,7 +75,7 @@ define(function(require) {
         
         var slopeDistancePosition = $('#truck-distance').position();
         
-        $('#draggable-truck').draggable({
+        $draggable_truck.draggable({
             axis: "x",
             drag: function(event, ui){
                updateOnDrag(model);
@@ -95,13 +97,13 @@ define(function(require) {
         $('#truck-to-edge').focusin(function() {
             $('.truck').switchClass("truck", "truck-greyed");
             $('.car').switchClass("car", "car-greyed");
-            $('#draggable-truck').draggable('disable');
+            $draggable_truck.draggable('disable');
         });
 
         $('#truck-to-edge').focusout(function() {
             $('.truck-greyed').switchClass("truck-greyed", "truck");
             $('.car-greyed').switchClass("car-greyed", "car");
-            $('#draggable-truck').draggable('enable');
+            $draggable_truck.draggable('enable');
 
         });
 

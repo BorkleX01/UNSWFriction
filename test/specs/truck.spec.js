@@ -17,14 +17,21 @@ define(function(require) {
         var notchAtTruck  = $('body').append('<div id="notch-at-truck"/>');
         var horizontalDistances  = $('body').append('<div id="horizontal-distances"/>');
         var draggableTruck  = $('body').append('<div id="draggable-truck"/>');
+        
+        
         beforeEach(function() {
+            
             model = new AppModel();
             capi = new Capi();
             truck(model, capi);
             
+            
+            
+            
         });
 
         it('has a functional model', function() {
+            
             expect(model).to.be.ok;
         });
         
