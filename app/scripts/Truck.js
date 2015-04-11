@@ -5,11 +5,11 @@ define(function(require) {
     var ui = require('jquery-ui');
     var horizontalDistances = require('HorizontalDistances');
     var $draggable_truck = $('#draggable-truck');
-    this.$draggable_truck = $draggable_truck;
 
     var drawDottedLines = function() {
 
-        var truckPos = $draggable_truck.position();
+        //var truckPos = $draggable_truck.position();
+        var truckPos = $('#draggable-truck').position();
         $('#truck-distance').width((truckPos.left+179)/Math.cos(this.model.getSlopeAngle() * Math.PI / 180));
         $('#truck-to-car-distance-measure').width(225 + truckPos.left);
         

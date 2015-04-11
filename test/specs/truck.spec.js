@@ -17,7 +17,7 @@ define(function(require) {
         var notchAtTruck  = $('body').append('<div id="notch-at-truck"/>');
         var horizontalDistances  = $('body').append('<div id="horizontal-distances"/>');
         var draggableTruck  = $('body').append('<div id="draggable-truck"/>');
-        
+        var truckGraphic  = $('#draggable-truck').append('<div class="truck"/>');
         
         beforeEach(function() {
             
