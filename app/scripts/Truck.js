@@ -4,11 +4,10 @@ define(function(require) {
     var $ = require('jquery');
     var ui = require('jquery-ui');
     var horizontalDistances = require('HorizontalDistances');
-    var $draggable_truck = $('#draggable-truck');
+    
 
     var drawDottedLines = function() {
 
-        //var truckPos = $draggable_truck.position();
         var truckPos = $('#draggable-truck').position();
         $('#truck-distance').width((truckPos.left+179)/Math.cos(this.model.getSlopeAngle() * Math.PI / 180));
         $('#truck-to-car-distance-measure').width(225 + truckPos.left);
@@ -27,7 +26,7 @@ define(function(require) {
             return notch.left - slope_base_offset.left;
         };
         var offsetVer = function(offset) {
-            return Math.tan(30 * Math.PI / 180) * offsetHor(offset);
+            return Math.tan(this.model.getSlopeAngle() * Math.PI / 180) * offsetHor(offset);
         };
 
         $('#dotted-line-to-leg-below').width(horizontals_positon.top - slope_base.top + offsetVer(notch_at_leg_offset) + 3);
@@ -41,24 +40,23 @@ define(function(require) {
         this.capi.setTruckDistanceFromEdge(distance);
 
         if (!dragging){
-            $draggable_truck.css({
+            this.$draggable_truck.css({
                 left: distance * 25 - 200
             });
         }
 
-        $('#truck-to-edge').val(Number(distance).toFixed(1));
+        this.$truck_to_edge.val(Number(distance).toFixed(1));
 
-        var truckPos = $('#draggable-truck').position();
-        $('#truck-distance-input').width(truckPos.left + 205);
+        var truckPos = this.$draggable_truck.position();
 
         var hDistWidth = (truckPos.left / Math.cos(this.model.getSlopeAngle() * Math.PI / 180)) * Math.cos(this.model.getSlopeAngle() * Math.PI / 180);
-        $('#distance-to-car-label').width(225 + hDistWidth);
+        this.$distance_to_car_label.width(225 + hDistWidth);
         drawDottedLines();
 
     };
 
     var updateOnDrag = function(model){
-        model.setTruckDistanceFromEdge(($draggable_truck.position().left + 200) / 25);
+        model.setTruckDistanceFromEdge((this.$draggable_truck.position().left + 200) / 25);
         drawDottedLines();
         horizontalDistances(model);
     };
@@ -70,15 +68,25 @@ define(function(require) {
         this.capi = capi;
         
         horizontalDistances(model);
+        var $draggable_truck = $('#draggable-truck');
+        this.$draggable_truck = $draggable_truck;
+        var $truck_to_edge = $('#truck-to-edge');
+        this.$truck_to_edge = $truck_to_edge;
+        var $distance_to_car_label = $('#distance-to-car-label');
+        this.$distance_to_car_label = $distance_to_car_label;
+        var $truck_distance_input = $('#truck-distance-input');
+        this.$truck_distance_input = $truck_distance_input;
+        
+        updateTruckDistanceFromEdge(model, capi, $draggable_truck);
+        
 
-        updateTruckDistanceFromEdge(model, capi);
         
         var slopeDistancePosition = $('#truck-distance').position();
         
         $draggable_truck.draggable({
             axis: "x",
             drag: function(event, ui){
-               updateOnDrag(model);
+                updateOnDrag(model);
             },
             start: function(event, ui){
                 dragging = true;
@@ -90,17 +98,17 @@ define(function(require) {
 
         model.on('change:truckDistanceFromEdge', updateTruckDistanceFromEdge, this);
 
-        $('#truck-to-edge').change(function() {
-            model.setTruckDistanceFromEdge($('#truck-to-edge').val());
+        $truck_to_edge.change(function() {
+            model.setTruckDistanceFromEdge($truck_to_edge.val());
         });
 
-        $('#truck-to-edge').focusin(function() {
+        $truck_to_edge.focusin(function() {
             $('.truck').switchClass("truck", "truck-greyed");
             $('.car').switchClass("car", "car-greyed");
             $draggable_truck.draggable('disable');
         });
 
-        $('#truck-to-edge').focusout(function() {
+        $truck_to_edge.focusout(function() {
             $('.truck-greyed').switchClass("truck-greyed", "truck");
             $('.car-greyed').switchClass("car-greyed", "car");
             $draggable_truck.draggable('enable');
