@@ -2,9 +2,13 @@
 define (function(require){
     var $ = require('jquery');
     var ui = require('jquery-ui');
-	    var AppModel = require('AppModel');
+    var AppModel = require('AppModel');
+    var Capi = require('Capi');
+    
+    //var horizontalDistances = require('HorizontalDistances');
+    var truck = require('Truck');
+    var capi = new Capi();
 
-	    var horizontalDistances = require('HorizontalDistances');
 	    
     var $body;
 
@@ -19,9 +23,9 @@ define (function(require){
     function init(){
         
 
-	var appModel = new AppModel();
+	var model = new AppModel();
 
-	horizontalDistances(appModel);
+	truck(model, capi);
 
         
     }
