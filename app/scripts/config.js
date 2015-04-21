@@ -14,8 +14,10 @@ requirejs.config({
         'sinon': {
             'exports': 'sinon'
         }
+        
     },
     'paths': {
+        'polyfill': '../../../node_modules/phantomjs-polyfill/bind-polyfill',
         'text': '../../../bower_components/requirejs-text/text',
         'jquery': '../../../bower_components/jquery/dist/jquery',
         'jquery-ui': '../../../bower_components/jquery-ui/jquery-ui',
