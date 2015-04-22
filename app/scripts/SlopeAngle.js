@@ -3,6 +3,7 @@ define(function(require) {
     var $ = require('jquery');
     var ui = require('jquery-ui');
     var dragging = false;
+    var horizontalPosOfDragThumb = 340;
     var updateSlopeAngle = function (model){
         var deg = -1*model.getSlopeAngle();
         $('#truck-surface').css({
@@ -13,14 +14,14 @@ define(function(require) {
             'transform' : 'rotate('+deg+'deg)'
         });
         if(!dragging){
-            var dragPos = 340/Math.cos(model.angle())*Math.sin(model.angle()) ;
+            var dragPos = horizontalPosOfDragThumb/Math.cos(model.angle())*Math.sin(model.angle()) ;
             this.$drag_thumb.css({'top':(-1*dragPos)+'px'});
         }
     };
     var updateOnDrag = function (model){
         
         var dragPos = -1*(parseFloat(this.$drag_thumb.css('top'))+9);
-        var tilt = parseInt(Math.sin(dragPos/340)*180/Math.PI);
+        var tilt = parseInt(Math.sin(dragPos/horizontalPosOfDragThumb)*180/Math.PI);
         model.setSlopeAngle(tilt);
         $('#slope-angle').val(tilt);
         

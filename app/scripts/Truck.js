@@ -6,7 +6,6 @@ define(function(require) {
     var updateHorizontalDistances = require('HorizontalDistances');
     var slope = require('SlopeAngle');
     var legs = require('SupportLegs');
-    //var polyfill = require('polyfill');
 
     var updateSlopedDistances = function() {
 
@@ -31,7 +30,10 @@ define(function(require) {
         
         var truckPos = parseFloat(this.$draggable_truck.css('left'));
         var supportLegPos = truckPos;
-        this.$support_legs.css({"left" : + (supportLegPos-60) + "px"}); 
+        this.$support_legs.css({"left" : + (supportLegPos-60) + "px"});
+        this.$support_legs.css({"left" : + (supportLegPos-60) + "px"});
+        this.truckDragThumb.css({"left" : + (truckPos - this.truckDragThumb.width()/2) + "px"});
+        
         
         updateHorizontalDistances(this.model);
         updateSlopedDistances();
@@ -64,6 +66,7 @@ define(function(require) {
         this.$support_legs = $support_legs;
         var $truck_distance_from_edge_line = $('#truck-distance');
         this.$truck_distance_from_edge_line = $truck_distance_from_edge_line;
+        this.truckDragThumb = $('#truck-drag-thumb');
 
         updateTruckDistanceFromEdge(model);
 

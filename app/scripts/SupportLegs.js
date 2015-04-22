@@ -2,11 +2,17 @@
 define(function(require) {
     var $ = require('jquery');
     var ui = require('jquery-ui');
-    //var polyfill = require('polyfill');
     var horizontalDistances = require('HorizontalDistances');
 
+    var legPosPx = function () {
+        return parseInt(this.$draggable_left_leg.css('left'));
+    };
     var legPos = function(model){
-        return model.px2m(-1*parseInt(this.$draggable_left_leg.css('left'))+this.truckWidth);
+
+        return model.px2m(-1*legPosPx()+this.truckWidth);
+    };
+    var sideSupportPx = function(model){
+        return this.model.m2px(this.model.getSideSupportLength());
     };
     var updateOnDrag = function(model){
         model.setSideSupportLength(legPos(model));
@@ -16,11 +22,13 @@ define(function(require) {
         horizontalDistances(this.model);
         
         if (!dragging){
-            this.$draggable_left_leg.css({'left':-1*this.model.m2px(this.model.getSideSupportLength())+this.truckWidth+'px'});
+            this.$draggable_left_leg.css({'left':-1*sideSupportPx()+this.truckWidth+'px'});
         }
-        this.$draggable_right_leg.css({'left': -1*(parseInt(this.$draggable_left_leg.css('left'))+20)+'px'});
-        this.$distance_line.css({'width': this.model.m2px(this.model.getSideSupportLength())+'px',
-                                 'left' : -1*this.model.m2px(this.model.getSideSupportLength())+this.model.m2px(this.model.getTruckDistanceFromEdge())+'px'});
+        this.$distance_line.css({'width': sideSupportPx()+'px',
+                                 'left' : -1*sideSupportPx()+this.model.m2px(this.model.getTruckDistanceFromEdge())+'px'});
+        $('#legL').width(-1*(legPosPx()-30));
+        $('#legR').width(-1*(legPosPx())+35);
+        $('#footR').css({'left' : parseInt($('#legR').width())-$('#footR').width()});
         this.$input_box.val(legPos(this.model).toFixed(1));
     };
 

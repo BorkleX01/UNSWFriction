@@ -3,17 +3,15 @@ define(function(require) {
 
     var $ = require('jquery');
 
-
     var horizontal_distance_truck_from_edge = function(model) {
 
-        return model.getTruckDistanceFromEdge() * Math.cos(model.getSlopeAngle() * Math.PI / 180) - (model.getCGTruckHeight() * Math.sin(model.angle()));
+        return model.getTruckDistanceFromEdge() * Math.cos(model.angle()) - (model.getCGTruckHeight() * Math.sin(model.angle()));
     };
 
     var horizontal_distance_left_support_from_edge = function(model) {
 
-        return (model.getTruckDistanceFromEdge() - model.getSideSupportLength()) * Math.cos(model.getSlopeAngle() * Math.PI / 180);
+        return (model.getTruckDistanceFromEdge() - model.getSideSupportLength()) * Math.cos(model.angle());
     };
-
 
     var horizontal_distance_truck_from_support = function(model) {
 
@@ -35,40 +33,39 @@ define(function(require) {
         var slope_base = $('#slope-base').position();
 
         var offsetHor = notch_at_leg_offset.left - slope_base_offset.left;
-        var offsetVer = Math.tan(model.getSlopeAngle() * Math.PI / 180) * offsetHor;
+        var offsetVer = Math.tan(model.angle()) * offsetHor;
         $('#dotted-line-to-leg-below').width(horizontals_y_positon.top - slope_base.top + offsetVer + 3);
     };
 
+    
+    var offsetHor = function(notch) {
+        var slope_base_offset = $('#slope-base').offset();
+        return notch.left - slope_base_offset.left;
+    };
+
+    var offsetVer = function(offset, model) {
+        return Math.tan(model.angle()) * offsetHor(offset);
+    };
 
     var drawDottedLineToTruckGrill = function(model) {
+        
         var notch_at_leg_offset = $('#notch-at-leg').offset();
         
-        var slope_base_offset = $('#slope-base').offset();
-
         var notch_at_truck_offset = $('#notch-at-truck').offset();
-
-        var horizontals_positon = $('#horizontal-distances').position();
-
+        
+        var horizontals_position = $('#horizontal-distances').position();
+        
         var slope_base = $('#slope-base').position();
-
-        var offsetHor = function(notch) {
-            return notch.left - slope_base_offset.left;
-        };
-        var offsetVer = function(offset) {
-            return Math.tan(model.getSlopeAngle() * Math.PI / 180) * offsetHor(offset);
-        };
-
-        $('#dotted-line-to-leg-below').width(horizontals_positon.top - slope_base.top + offsetVer(notch_at_leg_offset) + 3);
-        $('#dotted-line-to-truck-below').width(horizontals_positon.top - slope_base.top + offsetVer(notch_at_truck_offset) + 67);
+        
+        $('#dotted-line-to-leg-below').width(horizontals_position.top - slope_base.top + offsetVer(notch_at_leg_offset, model) + 3);
+        $('#dotted-line-to-truck-below').width(horizontals_position.top - slope_base.top + offsetVer(notch_at_truck_offset, model) + 50);
 
     };
 
     return function(model) {
 
         var $horizontal_line = $('#truck-to-car-distance-measure');
-        this.$horizontal_line = $horizontal_line;
         var $draggable_truck = $('#draggable-truck');
-        this.$draggable_truck = $draggable_truck;
         var $slope_base = $('#slope-base');
         var $horizontal_distances = $('#horizontal-distances');
 
@@ -78,8 +75,9 @@ define(function(require) {
 
         drawDottedLineToLeftSupport(model);
         drawDottedLineToTruckGrill(model);
+        
         var middleNotchPlacementRatio = horizontal_distance_truck_from_support(model) / (horizontal_distance_truck_from_support(model) + horizontal_distance_car_from_support(model));
-        var middleNotchPostionRight = middleNotchPlacementRatio * $("#truck-to-car-distance-measure").width();
+        var middleNotchPostionRight = middleNotchPlacementRatio * $horizontal_line.width();
 
         $('#notch-at-leg').css({
             "right": middleNotchPostionRight + "px"
