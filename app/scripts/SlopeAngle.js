@@ -42,6 +42,8 @@ define(function(require) {
         $('#slope-angle').change(function(){
             model.setSlopeAngle($('#slope-angle').val());
         });
+        var $input_box = $('#slope-angle');
+        this.$input_box = $input_box;
         
         $drag_thumb.draggable({
             axis: "y",
@@ -56,6 +58,20 @@ define(function(require) {
             }
         });
         
+        $input_box.focusin(function(){
+            $('.truck').switchClass("truck", "truck-greyed");
+            $('.car').switchClass("car", "car-greyed");
+            $('#leg-drag-thumb').switchClass("blue-draggable-thumb-rightleft","blue-draggable-thumb-rightleft-greyed");
+            $('#truck-drag-thumb').switchClass("blue-draggable-thumb-rightleft","blue-draggable-thumb-rightleft-greyed");
+        });
+        
+
+        $input_box.focusout(function(){
+            $('.truck-greyed').switchClass("truck-greyed", "truck");
+            $('.car-greyed').switchClass("car-greyed", "car");
+            $('#leg-drag-thumb').switchClass("blue-draggable-thumb-rightleft-greyed","blue-draggable-thumb-rightleft");
+            $('#truck-drag-thumb').switchClass("blue-draggable-thumb-rightleft-greyed","blue-draggable-thumb-rightleft");
+        });
         
     };
 });

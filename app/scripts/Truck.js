@@ -93,15 +93,15 @@ define(function(require) {
         });
 
         $truck_to_edge_input.focusin(function() {
-            $('.truck').switchClass("truck", "truck-greyed");
             $('.car').switchClass("car", "car-greyed");
-            $draggable_truck.draggable('disable');
+            $('#leg-drag-thumb').switchClass("blue-draggable-thumb-rightleft","blue-draggable-thumb-rightleft-greyed");
+            $('#slope-angle-thumb').switchClass("blue-draggable-thumb-updown","blue-draggable-thumb-updown-greyed");
         });
 
         $truck_to_edge_input.focusout(function() {
-            $('.truck-greyed').switchClass("truck-greyed", "truck");
             $('.car-greyed').switchClass("car-greyed", "car");
-            $draggable_truck.draggable('enable');
+            $('#leg-drag-thumb').switchClass("blue-draggable-thumb-rightleft-greyed","blue-draggable-thumb-rightleft");
+            $('#slope-angle-thumb').switchClass("blue-draggable-thumb-updown-greyed","blue-draggable-thumb-updown");
         });
 
     };

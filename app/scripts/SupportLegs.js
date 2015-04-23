@@ -86,14 +86,21 @@ define(function(require) {
             model.setSideSupportLength($input_box.val());
             
         });
+        
         $input_box.focusin(function(){
             $('.truck').switchClass("truck", "truck-greyed");
             $('.car').switchClass("car", "car-greyed");
-            $draggable_truck.draggable('disable');});
+            $('#slope-angle-thumb').switchClass("blue-draggable-thumb-updown","blue-draggable-thumb-updown-greyed");
+            $('#truck-drag-thumb').switchClass("blue-draggable-thumb-rightleft","blue-draggable-thumb-rightleft-greyed");
+        });
+        
 
         $input_box.focusout(function(){
             $('.truck-greyed').switchClass("truck-greyed", "truck");
             $('.car-greyed').switchClass("car-greyed", "car");
-            $draggable_truck.draggable('enable');});
+            $('#slope-angle-thumb').switchClass("blue-draggable-thumb-updown-greyed","blue-draggable-thumb-updown");
+            $('#truck-drag-thumb').switchClass("blue-draggable-thumb-rightleft-greyed","blue-draggable-thumb-rightleft");
+        });
+        
     };
 });
