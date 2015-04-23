@@ -5,9 +5,9 @@ define (function(require){
     var AppModel = require('AppModel');
     var Capi = require('Capi');
     
-    //var horizontalDistances = require('HorizontalDistances');
     var truck = require('Truck');
     var capi = new Capi();
+    var slope = require('SlopeAngle');
 
 	    
     var $body;
@@ -26,6 +26,7 @@ define (function(require){
 	var model = new AppModel();
 
 	truck(model, capi);
+        slope(model, capi);
 
         
     }

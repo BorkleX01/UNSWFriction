@@ -20,18 +20,13 @@ define(function(require) {
         var truckGraphic  = $('#draggable-truck').append('<div class="truck"/>');
         
         beforeEach(function() {
-            
             model = new AppModel();
             capi = new Capi();
             truck(model, capi);
             
-            
-            
-            
         });
 
         it('has a functional model', function() {
-            
             expect(model).to.be.ok;
         });
         

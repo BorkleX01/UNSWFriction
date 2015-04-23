@@ -26,44 +26,77 @@
     <div id="body-mask">
         <div class="car">
         </div>
-        
-        <div id="truck_surface" class="rotates-with-slope">
-          <div id="draggable-truck">
-            <div id="support-legs">
-                <div id="left-leg">
-                    <div id="legL"></div>
-                    <div id="footL"></div>
+
+        <div id="truck-surface" class="rotates-with-slope">
+          
+            <div id="support-legs" >
+                <div id="draggable-left-leg">
+                    <div id="left-leg">
+                      
+                      <div id="legL"></div>
+                      <div id="footL"></div>
+                      
+                    </div>
+                    
                 </div>
-                <div id="right-leg">
-                    <div id="footR"></div>
-                    <div id="legR"></div>
+                
+                <div id="right-leg" class="border">
+                  <div id="footR"></div>
+                  <div id="legR"></div>
+                </div>
+                
+            </div>
+            <div id="draggable-truck">
+                <div class="truck">
+                    <div id="truck-mass-text">Mass
+                        <br/><span style="font-weight: 300;">2510 kg</span>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div id="truck-distance">
+                <div id="truck-distance-input">
+                    <input class="input-box" value="0" id="truck-to-edge" />
+                </div>
+                <div id="support-leg-distance-input">
+                    <input class="input-box" value="0" id="support-leg-from-truck" />
+                </div>
+                <div id="truck-distance-notch-at-truck">
+                    <div id="dotted-line-to-truck-above" class="rotated270">......................................................................</div>
+                </div>
+                <div id="truck-distance-notch-at-edge">
+                    <div id="dotted-line-to-edge-above" class="rotated270">......................................................................</div>
+                </div>
+
+            </div>
+            <div id="truck-drag-thumb" class="blue-draggable-thumb-rightleft"></div>
+            <div id="support-leg-distance">
+                
+                <div id="support-leg-distance-notch-at-truck">
 
                 </div>
+                <div id="support-leg-distance-notch-at-leg">
+                    <div id="leg-dotted-line-to-leg-above" class="rotated270">......................................................................</div>
+                </div>
+                <div id="leg-drag-thumb" class="blue-draggable-thumb-rightleft"></div>
+
             </div>
             
-            <div class="truck">
-              
-              <div id="truck-mass-text">Mass
-                <br/><span style="font-weight: 300;">2510 kg</span>
-              </div>
 
+        </div>
 
-            </div>
+        <div id="slope-base">
+           
             
-          </div>
-
+            <div id="slope-angle-input">
+                <input class="input-box" value="0" id="slope-angle" />
+            </div>
+            <div id="slope-angle-label">
+                Slope Angle
+            </div>
+           <div id="slope-angle-thumb" class="blue-draggable-thumb-updown"></div>
         </div>
-        <div id="truck-distance" class="rotates-with-slope">
-              <div id="truck-distance-input"><input class="input-box" value="7.5" id="truck-to-edge"/></div>
-              <div id="truck-distance-notch-at-truck">
-                <div id="dotted-line-to-truck-above" class="rotated270">......................................................................</div>
-              </div>
-              <div id="truck-distance-notch-at-edge">
-                <div id="dotted-line-to-edge-above" class="rotated270">......................................................................</div>
-              </div>
-              
-        </div>
-        <div id="slope-base"></div>
 
         <div id="car-mass-text">Mass
             <br/><span style="font-weight: 300;">1700 kg</span>

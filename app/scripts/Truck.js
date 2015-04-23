@@ -1,118 +1,107 @@
-/*globals checkBrowser, document, console, window, Math, $, require, updateTruckDistanceFromEdge*/
+/*globals console, Math, $, require*/
 define(function(require) {
 
     var $ = require('jquery');
     var ui = require('jquery-ui');
-    var horizontalDistances = require('HorizontalDistances');
-    
+    var updateHorizontalDistances = require('HorizontalDistances');
+    var slope = require('SlopeAngle');
+    var legs = require('SupportLegs');
 
-    var drawDottedLines = function() {
+    var updateSlopedDistances = function() {
 
-        var truckPos = $('#draggable-truck').position();
-        $('#truck-distance').width((truckPos.left+179)/Math.cos(this.model.getSlopeAngle() * Math.PI / 180));
-        $('#truck-to-car-distance-measure').width(225 + truckPos.left);
-        
-        var notch_at_leg_offset = $('#notch-at-leg').offset();
-        
-        var slope_base_offset = $('#slope-base').offset();
+        var truckPos = parseFloat($('#draggable-truck').css('left'));
+        this.$truck_distance_from_edge_line.width(truckPos);
 
-        var notch_at_truck_offset = $('#notch-at-truck').offset();
-
-        var horizontals_positon = $('#horizontal-distances').position();
-
-        var slope_base = $('#slope-base').position();
-
-        var offsetHor = function(notch) {
-            return notch.left - slope_base_offset.left;
-        };
-        var offsetVer = function(offset) {
-            return Math.tan(this.model.getSlopeAngle() * Math.PI / 180) * offsetHor(offset);
-        };
-
-        $('#dotted-line-to-leg-below').width(horizontals_positon.top - slope_base.top + offsetVer(notch_at_leg_offset) + 3);
-        $('#dotted-line-to-truck-below').width(horizontals_positon.top - slope_base.top + offsetVer(notch_at_truck_offset) + 70);
     };
 
-    var updateTruckDistanceFromEdge = function() {
+    var updateTruckDistanceFromEdge = function(model) {
 
         var distance = this.model.getTruckDistanceFromEdge();
 
         this.capi.setTruckDistanceFromEdge(distance);
 
-        if (!dragging){
+        if (!dragging) {
             this.$draggable_truck.css({
-                left: distance * 25 - 200
+                left: this.model.m2px(distance)
             });
         }
-
-        this.$truck_to_edge.val(Number(distance).toFixed(1));
-
-        var truckPos = this.$draggable_truck.position();
-
-        var hDistWidth = (truckPos.left / Math.cos(this.model.getSlopeAngle() * Math.PI / 180)) * Math.cos(this.model.getSlopeAngle() * Math.PI / 180);
-        this.$distance_to_car_label.width(225 + hDistWidth);
-        drawDottedLines();
-
+        
+        this.$truck_to_edge_input.val(Number(distance).toFixed(1));
+        
+        var truckPos = parseFloat(this.$draggable_truck.css('left'));
+        var supportLegPos = truckPos;
+        this.$support_legs.css({"left" : + (supportLegPos-60) + "px"});
+        this.$support_legs.css({"left" : + (supportLegPos-60) + "px"});
+        this.truckDragThumb.css({"left" : + (truckPos - this.truckDragThumb.width()/2) + "px"});
+        
+        
+        updateHorizontalDistances(this.model);
+        updateSlopedDistances();
     };
 
-    var updateOnDrag = function(model){
-        model.setTruckDistanceFromEdge((this.$draggable_truck.position().left + 200) / 25);
-        drawDottedLines();
-        horizontalDistances(model);
+    var updateOnDrag = function(model) {
+        model.setTruckDistanceFromEdge(model.px2m(this.$draggable_truck.position().left)/Math.cos(model.angle()));
+        updateSlopedDistances();
+        updateHorizontalDistances(model);
     };
 
     var dragging = false;
-    
+
     return function(model, capi) {
         this.model = model;
         this.capi = capi;
+
+        slope(model, capi);
+        legs(model, capi);
         
-        horizontalDistances(model);
         var $draggable_truck = $('#draggable-truck');
         this.$draggable_truck = $draggable_truck;
-        var $truck_to_edge = $('#truck-to-edge');
-        this.$truck_to_edge = $truck_to_edge;
+        var $truck_to_edge_input = $('#truck-to-edge');
+        this.$truck_to_edge_input = $truck_to_edge_input;
         var $distance_to_car_label = $('#distance-to-car-label');
         this.$distance_to_car_label = $distance_to_car_label;
         var $truck_distance_input = $('#truck-distance-input');
         this.$truck_distance_input = $truck_distance_input;
-        
-        updateTruckDistanceFromEdge(model, capi, $draggable_truck);
-        
+        var $support_legs = $('#support-legs');
+        this.$support_legs = $support_legs;
+        var $truck_distance_from_edge_line = $('#truck-distance');
+        this.$truck_distance_from_edge_line = $truck_distance_from_edge_line;
+        this.truckDragThumb = $('#truck-drag-thumb');
 
-        
+        updateTruckDistanceFromEdge(model);
+
         var slopeDistancePosition = $('#truck-distance').position();
-        
+
         $draggable_truck.draggable({
             axis: "x",
-            drag: function(event, ui){
+            drag: function(event, ui) {
                 updateOnDrag(model);
             },
-            start: function(event, ui){
+            start: function(event, ui) {
                 dragging = true;
             },
-            stop: function(event, ui){
+            stop: function(event, ui) {
                 dragging = false;
             }
         });
 
         model.on('change:truckDistanceFromEdge', updateTruckDistanceFromEdge, this);
+        model.on('change:slopeAngle', updateTruckDistanceFromEdge, this);
 
-        $truck_to_edge.change(function() {
-            model.setTruckDistanceFromEdge($truck_to_edge.val());
+        $truck_to_edge_input.change(function() {
+            model.setTruckDistanceFromEdge($truck_to_edge_input.val());
         });
 
-        $truck_to_edge.focusin(function() {
-            $('.truck').switchClass("truck", "truck-greyed");
+        $truck_to_edge_input.focusin(function() {
             $('.car').switchClass("car", "car-greyed");
-            $draggable_truck.draggable('disable');
+            $('#leg-drag-thumb').switchClass("blue-draggable-thumb-rightleft","blue-draggable-thumb-rightleft-greyed");
+            $('#slope-angle-thumb').switchClass("blue-draggable-thumb-updown","blue-draggable-thumb-updown-greyed");
         });
 
-        $truck_to_edge.focusout(function() {
-            $('.truck-greyed').switchClass("truck-greyed", "truck");
+        $truck_to_edge_input.focusout(function() {
             $('.car-greyed').switchClass("car-greyed", "car");
-            $draggable_truck.draggable('enable');
-
+            $('#leg-drag-thumb').switchClass("blue-draggable-thumb-rightleft-greyed","blue-draggable-thumb-rightleft");
+            $('#slope-angle-thumb').switchClass("blue-draggable-thumb-updown-greyed","blue-draggable-thumb-updown");
         });
 
     };

@@ -9,7 +9,7 @@ body {
     overflow: hidden;
     position: relative;
 }
-#truck_surface {
+#truck-surface {
     position: absolute;
     left: 163px;
     top: 115px;
@@ -21,8 +21,11 @@ body {
 #draggable-truck {
 
 }
+#draggable-left-leg{
+   left: 0px;
+}
 .truck {
-    left: 150px;
+    left: -54.5px;
     top: 107px;
     position: absolute;
     width: 109px;
@@ -35,7 +38,7 @@ body {
     cursor: default;
 }
 .truck-greyed {
-    left: 150px;
+    left: -54.5px;
     top: 107px;
     position: absolute;
     width: 109px;
@@ -43,25 +46,26 @@ body {
     background-image: url("@{imgPath}/truck-gray.png");
     background-repeat: no-repeat;
 }
+
 #truck-distance {
     position: absolute;
     height: 1px;
-    width: 205px;
+    width: 0px;
     background-color: #000000;
-    left: 50px;
-    top: 148px;
+    left: 0px;
+    top: 0px;
     transform-origin: 0% 0%;
-    
 }
-;
+
 #truck-distance-notch-at-edge {
     position: absolute;
     width: 1px;
     height: 11px;
     background-color: #000000;
     top: -5px;
+   pointer-events: none;
 }
-;
+
 #truck-distance-notch-at-truck {
     position: absolute;
     width: 1px;
@@ -69,8 +73,9 @@ body {
     background-color: #000000;
     left: 100%;
     top: -5px;
+    pointer-events: none;
 }
-;
+
 #dotted-line-to-truck-above {
     position: absolute;
     left: 4px;
@@ -98,6 +103,64 @@ body {
     user-select: none;
     cursor: default;
 }
+#truck-distance-input {
+   width:50px;
+   position: absolute;
+   left: 77.5px;
+   top: -50px;
+}
+#support-leg-distance{
+    position: absolute;
+    height: 1px;
+    width: 0px;
+    background-color: #000000;
+    left: 0px;
+    top: 60px;
+    transform-origin: 0% 0%;
+}
+#support-leg-distance-notch-at-truck{
+    position: absolute;
+    width: 1px;
+    height: 11px;
+    background-color: #000000;
+    left: 100%;
+    top: -5px;
+   pointer-events: none;
+}
+#support-leg-distance-notch-at-leg{
+   position: absolute;
+    width: 1px;
+    height: 11px;
+    background-color: #000000;
+    left: 0%;
+   top: -5px;
+   pointer-events: none;
+}
+#support-leg-distance-input{
+   width:50px;
+   position: absolute;
+   left: 77.5px;
+   top: 15px;}
+
+
+#leg-dotted-line-to-leg-above{
+   position: absolute;
+    left: 4px;
+    transform-origin: 0%;
+    overflow: hidden;
+    width: 140px;
+    color: #878787;
+    letter-spacing: 3px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+   pointer-events: none;
+}
+
+
+
+
 .truck-image-active {
     content:url("@{imgPath}/Truck.png");
 }
@@ -123,9 +186,11 @@ body {
     background-image: url("@{imgPath}/car.png");
 }
 .rotates-with-slope {
-    -webkit-transform: rotate(-30deg);
-    -moz-transform: rotate(-30deg);
-    -ms-transform: rotate(-30deg);
+   -webkit-transform: rotate(-0deg);
+   -moz-transform: rotate(-0deg);
+   -ms-transform: rotate(-0deg);
+   -o-transform: rotate(-0deg); 
+   transform: rotate(-0deg); 
 }
 #slope-base {
     position: absolute;
@@ -135,6 +200,7 @@ body {
     height: 225px;
     background-image: url("@{imgPath}/slope-base.png");
 }
+
 #car-mass-text {
     font-family: 'Roboto', sans-serif;
     position: absolute;
@@ -151,14 +217,94 @@ body {
     user-select: none;
     cursor: default;
 }
-#truck-distance-input {
-    position: absolute;
-    left: 77.5px;
-    top: -50px;
+
+#slope-angle-input {
+   position: absolute;
+   left: 250px;
+   top: 25px;
+   width: 100px;
 }
-;
+#slope-angle-label{
+   position: absolute;
+   font-family: 'Roboto', sans-serif;
+   left: 263px;
+   top: 60px;
+}
+#slope-angle-thumb
+{
+   position:absolute;
+   top: -9px;
+   left: 340px;
+}
+#truck-drag-thumb
+{
+   position:absolute;
+   top: 165px;
+   left: -8px;
+   pointer-events: none;
+}
+#leg-drag-thumb{
+   position: absolute;
+   top: 132px;
+   left: -6px;
+   pointer-events: none;
+
+
+}
+.blue-draggable-thumb-rightleft
+{
+   width: 19px;
+   height: 19px;
+   background: #07b9ed;
+   background-repeat : no-repeat;
+   border-radius: 50%;
+   -moz-border-radius: 50%;
+   -webkit-border-radius: 50%;
+   background-image: url("@{imgPath}/arrows-leftright.png");
+   background-position: center;
+
+}
+.blue-draggable-thumb-rightleft-greyed
+{
+   width: 19px;
+   height: 19px;
+   background: #aaaaaa;
+   background-repeat : no-repeat;
+   border-radius: 50%;
+   -moz-border-radius: 50%;
+   -webkit-border-radius: 50%;
+   background-image: url("@{imgPath}/arrows-leftright.png");
+   background-position: center;
+
+}
+.blue-draggable-thumb-updown
+{
+   width: 19px;
+   height: 19px;
+   background: #07b9ed;
+   background-repeat : no-repeat;
+   border-radius: 50%;
+   -moz-border-radius: 50%;
+   -webkit-border-radius: 50%;
+   background-image: url("@{imgPath}/arrows-updown.png");
+   background-position: center;
+
+}
+.blue-draggable-thumb-updown-greyed
+{
+   width: 19px;
+   height: 19px;
+   background: #aaaaaa;
+   background-repeat : no-repeat;
+   border-radius: 50%;
+   -moz-border-radius: 50%;
+   -webkit-border-radius: 50%;
+   background-image: url("@{imgPath}/arrows-updown.png");
+   background-position: center;
+
+}
 .input-box {
-    width: 50px;
+    width: 100%;
     height: 30px;
     text-align: center;
 }
@@ -167,7 +313,7 @@ body {
     position: absolute;
     background-color: #000000;
     height: 1px;
-    width: 225px;
+    width: 0px;
 }
 #notch-at-truck {
     position: absolute;
@@ -176,6 +322,8 @@ body {
     width: 1px;
     left: 100%;
     top: -5px;
+   pointer-events: none;
+   
 }
 #notch-at-leg {
     position: absolute;
@@ -184,6 +332,7 @@ body {
     width: 1px;
     right: 100px;
     top: -5px;
+    pointer-events: none;
 }
 #notch-at-car {
     position: absolute;
@@ -232,7 +381,7 @@ body {
 #horizontal-distances {
     position: absolute;
     top: 465px;
-    left: 90px;
+    left: 45px;
     width: 435px;
     height: 1px;
 }
@@ -252,26 +401,27 @@ body {
 }
 #support-legs {
     position: absolute;
-    left: 150px;
+    left: 0px;
     top: 107px;
 }
 #left-leg {
     top: 85px;
-    left: -65px;
+    left: 0px;
     position: absolute;
 }
 #right-leg {
     top: 85px;
-    left: 45px;
+    left: 79px;
     position: absolute;
 }
 #legL {
     position: absolute;
-    width: 130px;
+    width: 1px;
     height: 15px;
     background-color: #bcdfdd;
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
+
 }
 #footL {
     width: 15px;
@@ -279,10 +429,11 @@ body {
     background-color: #acccc7;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
+   pointer-events: none;
 }
 #legR {
     position: absolute;
-    width: 130px;
+    width: 1px;
     height: 15px;
     background-color: #bcdfdd;
     border-top-right-radius: 6px;
@@ -295,9 +446,9 @@ body {
     background-color: #acccc7;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
-    left: 115px;
+    left: 0px;
 }
-#border {
+.border {
     border-style: solid;
     border-width: 1px;
 }
