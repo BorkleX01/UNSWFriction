@@ -5,9 +5,11 @@ define(function(require) {
     describe('Horizontal distances', function() {
         var horizontalDistances = require('HorizontalDistances');
         var AppModel = require('AppModel');
+        var Capi = require('Capi');
         var hDists = null;
         var appModel = null;
         var model = null;
+        var capi = null;
 
         var car = document.createElement('div');
         car.id = "distance-to-car-label";
@@ -32,10 +34,10 @@ define(function(require) {
         
         beforeEach(function() {
             appModel = new AppModel();
-            hDists =  horizontalDistances(appModel);
-            model = appModel;
-
+            capi = new Capi();
             
+            model = appModel;
+            hDists =  horizontalDistances(model,capi);
         });
 
         it('has a functional model', function() {
@@ -47,7 +49,7 @@ define(function(require) {
             model.setSlopeAngle(30);
             model.setSideSupportLength(5);
             model.setCarDistanceFromEdge(5);
-            horizontalDistances(appModel);
+            horizontalDistances(appModel, capi);
             $(document).ready(function(){
                 expect($('#distance-to-car-label').html()).to.equal('7.17');
                 expect($('#distance-to-leg-label').html()).to.equal('3.08');
@@ -60,7 +62,7 @@ define(function(require) {
             model.setSlopeAngle(0);
             model.setSideSupportLength(5);
             model.setCarDistanceFromEdge(5);
-            horizontalDistances(appModel);
+            horizontalDistances(appModel, capi);
             $(document).ready(function(){
                 expect($('#distance-to-car-label').html()).to.equal('7.50');
                 expect($('#distance-to-leg-label').html()).to.equal('5.00');

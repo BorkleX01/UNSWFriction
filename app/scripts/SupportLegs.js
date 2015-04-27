@@ -2,7 +2,7 @@
 define(function(require) {
     var $ = require('jquery');
     var ui = require('jquery-ui');
-    var horizontalDistances = require('HorizontalDistances');
+    var updateHorizontalDistances = require('HorizontalDistances');
 
     var legPosPx = function () {
         return parseInt(this.$draggable_left_leg.css('left'));
@@ -11,15 +11,18 @@ define(function(require) {
 
         return model.px2m(-1*legPosPx()+this.truckWidth);
     };
-    var sideSupportPx = function(model){
+    var sideSupportPx = function(){
         return this.model.m2px(this.model.getSideSupportLength());
     };
-    var updateOnDrag = function(model){
+    var updateOnDrag = function(model, capi){
         model.setSideSupportLength(legPos(model));
+        capi.setSideSupportLength(legPos(model));
     };
-
+    
+    
+    
     var updateSideSupportLength = function(){
-        horizontalDistances(this.model);
+        updateHorizontalDistances(this.model, this.capi);
         
         if (!dragging){
             this.$draggable_left_leg.css({'left':-1*sideSupportPx()+this.truckWidth+'px'});
@@ -29,7 +32,10 @@ define(function(require) {
         $('#legL').width(-1*(legPosPx()-30));
         $('#legR').width(-1*(legPosPx())+35);
         $('#footR').css({'left' : parseInt($('#legR').width())-$('#footR').width()});
-        this.$input_box.val(legPos(this.model).toFixed(1));
+        this.$legDist_intput_box.val(legPos(this.model).toFixed(1));
+    };
+    var updateModel = function(){
+        this.model.setSideSupportLength(this.capi.getSideSupportLength());
     };
 
     var dragging = false;
@@ -44,7 +50,9 @@ define(function(require) {
         
 
         model.on('change:sideSupportLength', updateSideSupportLength, this);
+        capi.on('change:sideSupportLength', updateModel, this);
         model.on('change:truckDistanceFromEdge', updateSideSupportLength, this);
+        capi.on('change:truckDistanceFromEdge', updateSideSupportLength, this);
 
         var $support_legs = $('#support_legs');
         this.$truck_distance_input = $support_legs;
@@ -61,8 +69,8 @@ define(function(require) {
         var $draggable_truck = $('#draggable-truck');
         this.$draggable_truck = $draggable_truck;
 
-        var $input_box = $('#support-leg-from-truck');
-        this.$input_box = $input_box;
+        var $legDist_intput_box = $('#support-leg-from-truck');
+        this.$legDist_intput_box = $legDist_intput_box;
 
         var truckWidth = parseFloat($('.truck').css('width'))/2;
         this.truckWidth = truckWidth;
@@ -72,7 +80,7 @@ define(function(require) {
         $draggable_left_leg.draggable({
             axis: "x",
             drag: function(event, ui){
-                updateOnDrag(model);
+                updateOnDrag(model, capi);
             },
             start: function(event, ui) {
                 dragging = true;
@@ -81,26 +89,34 @@ define(function(require) {
                 dragging = false;
             }
         });
-
-        $input_box.change(function(){
-            model.setSideSupportLength($input_box.val());
-            
-        });
-        
-        $input_box.focusin(function(){
+        var greyout = function(){
             $('.truck').switchClass("truck", "truck-greyed");
             $('.car').switchClass("car", "car-greyed");
             $('#slope-angle-thumb').switchClass("blue-draggable-thumb-updown","blue-draggable-thumb-updown-greyed");
             $('#truck-drag-thumb').switchClass("blue-draggable-thumb-rightleft","blue-draggable-thumb-rightleft-greyed");
-        });
-        
-
-        $input_box.focusout(function(){
+        };
+        var greyin = function(){
             $('.truck-greyed').switchClass("truck-greyed", "truck");
             $('.car-greyed').switchClass("car-greyed", "car");
             $('#slope-angle-thumb').switchClass("blue-draggable-thumb-updown-greyed","blue-draggable-thumb-updown");
             $('#truck-drag-thumb').switchClass("blue-draggable-thumb-rightleft-greyed","blue-draggable-thumb-rightleft");
+        };
+        $legDist_intput_box.change(function(){
+            model.setSideSupportLength($legDist_intput_box.val());
+            capi.setSideSupportLength($legDist_intput_box.val());
+            
         });
+        
+        $legDist_intput_box.focusin(function(){
+            greyout();
+        });
+        
+
+        $legDist_intput_box.focusout(function(){
+            greyin();
+        });
+
+        //this.$draggable_left_leg.mouseover(function(){greyout();}).mouseout(function(){greyin();});
         
     };
 });
