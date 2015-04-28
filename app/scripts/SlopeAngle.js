@@ -79,17 +79,12 @@ define(function(require) {
             $('#leg-drag-thumb').switchClass("blue-draggable-thumb-rightleft-greyed","blue-draggable-thumb-rightleft");
             $('#truck-drag-thumb').switchClass("blue-draggable-thumb-rightleft-greyed","blue-draggable-thumb-rightleft");
         };
-        $input_box.focusin(function(){
-            greyout();
-        });
+        $input_box.focusin(greyout);
         
 
-        $input_box.focusout(function(){
-            greyin();
-        });
+        $input_box.focusout(greyin);
 
-        //$drag_thumb.mouseover(function(){greyout();}).mouseout(function(){greyin();});
-        
+
     };
 });
 

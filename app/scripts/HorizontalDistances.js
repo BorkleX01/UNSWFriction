@@ -2,6 +2,7 @@
 define(function(require) {
 
     var $ = require('jquery');
+    var moment = require('Moment');
 
     var horizontal_distance_truck_from_edge = function(model) {
 
@@ -98,15 +99,7 @@ define(function(require) {
         model.setCarToSupport(horizontal_distance_car_from_support(model).toFixed(2));
 
 
-        capi.setCWMoment(model.getCWMoment().toFixed(2));
-
-        capi.setCCWMoment(model.getCCWMoment().toFixed(2));
-
-        capi.setCarMoment(model.getCarMoment().toFixed(2));
-        capi.setTruckMoment(model.getTruckMoment().toFixed(2));
-        capi.setRightNormalForce(model.getRightNormalForce().toFixed(2));
-        capi.setLeftNormalForce(model.getLeftNormalForce().toFixed(2));
-        capi.setForcePreventingSliding(model.getForcePreventingSliding().toFixed(2));
+        moment(model, capi);
         
 
     };

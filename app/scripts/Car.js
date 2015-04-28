@@ -1,10 +1,10 @@
 define(function(require) {
     var $ = require('jquery');
     var ui = require('jquery-ui');
-    var updateHorizontalDistances = require('HorizontalDistances');
+    var moment = require('Moment');
     var updateCarMass = function(){
         $('#car-mass').text(this.model.getCarMass() + ' kg');
-        updateHorizontalDistances(this.model, this.capi);
+        moment(this.model, this.capi);
     };
     var updateModel = function(){
         this.model.setCarMass(this.capi.getCarMass());

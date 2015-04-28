@@ -4,6 +4,7 @@ define(function(require) {
     var $ = require('jquery');
     var ui = require('jquery-ui');
     var updateHorizontalDistances = require('HorizontalDistances');
+    var moment = require('Moment');
     var slope = require('SlopeAngle');
     var legs = require('SupportLegs');
     var car = require('Car');
@@ -56,7 +57,7 @@ define(function(require) {
     };
     var updateTruckMass = function(){
         $('#truck-mass').text(this.model.getTruckMass()+" kg");
-        updateHorizontalDistances(this.model, this.capi);
+         moment(this.model, this.capi);
     };
     var hideMassLabel = function(){
 
@@ -129,15 +130,11 @@ define(function(require) {
             capi.setTruckDistanceFromEdge($truck_to_edge_input.val());
         });
 
-        $truck_to_edge_input.focusin(function() {
-            greyout();
-        });
+        $truck_to_edge_input.focusin(greyout);
 
-        $truck_to_edge_input.focusout(function() {
-            greyin();
-        });
+        $truck_to_edge_input.focusout(greyin);
 
-        //$draggable_truck.mouseover(function(){greyout();}).mouseout(function(){greyin();});
+
 
     };
 });
