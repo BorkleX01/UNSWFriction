@@ -1,3 +1,4 @@
+/*globals console, Math, $, require*/
 define(function(require) {
     
 
@@ -14,5 +15,13 @@ define(function(require) {
         capi.setRightNormalForce(model.getRightNormalForce().toFixed(2));
         capi.setLeftNormalForce(model.getLeftNormalForce().toFixed(2));
         capi.setForcePreventingSliding(model.getForcePreventingSliding().toFixed(2));
+
+        //console.log(model.getCWMoment()+" "+model.getCCWMoment());
+        if(model.getCCWMoment() > -1*model.getCWMoment()){
+            console.log("warning");
+        }else{
+            console.log("safe");
+        }
+        
     };
 });

@@ -45,6 +45,7 @@ define(function(require) {
         });
 
         it('returns these figures and places them in text fields', function (){
+            model.setCGTruckHeight(2.5);
             model.setTruckDistanceFromEdge(7.5);
             model.setSlopeAngle(30);
             model.setSideSupportLength(5);

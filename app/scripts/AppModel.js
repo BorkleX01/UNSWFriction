@@ -10,7 +10,7 @@ define(function(require) {
             carDistanceFromEdge: 5,
             pixelScale: 25,
             cgHeightTruck: 2.5, //to match with graphics should be 1
-            truckCraneHeight: 3,
+            truckCraneHeight: 6,
             beamLength: 0,
             carMass: 1000,
             truckMass: 3000,
@@ -58,18 +58,20 @@ define(function(require) {
         angle: function() {
             return this.get('slopeAngle') * Math.PI / 180;
         },
+        setCGTruckHeight: function(height) {
+            return this.set('cgHeightTruck', height);
+        },
         getCGTruckHeight: function() {
             return this.get('cgHeightTruck');
         },
         getTruckCraneHeight: function() {
             return this.get('truckCraneHeight');
         },
+        
         getBeamLength: function() {
-            return this.get('beamLength');
-        },
-        setBeamLength: function() {
             var length = this.getCarDistanceFromEdge()-(this.getTruckCraneHeight()*Math.sin(this.angle()))+this.getTruckDistanceFromEdge();
-            this.set('beamLength', length);
+            return length;
+            
         },
         getCarMass: function() {
             return this.get('carMass');

@@ -46,7 +46,42 @@ body {
     background-image: url("@{imgPath}/truck-gray.png");
     background-repeat: no-repeat;
 }
-
+.crane-mount {
+   position: absolute;
+   width: 15px;
+   height: 75px;
+   background-color: #9999cc;
+   top: 75px;
+}
+.crane-mount-greyed {
+   position: absolute;
+   width: 15px;
+   height: 75px;
+   background-color: #a3a3a3;
+   top: 75px;
+}
+.crane-beam {
+   position: absolute;
+   width: 100px;
+   height: 15px;
+   background-color: #ca9bed;
+   top: 75px;
+}
+.crane-beam-greyed {
+   position: absolute;
+   width: 100px;
+   height: 15px;
+   background-color: #c7c7c7;
+   top: 75px;
+}
+#cable{
+   position: absolute;
+   width:1px;
+   height:500px;
+   background-color: #000000;
+   top: 0px;
+   transform-origin: 0% 0%;
+}
 #truck-distance {
     position: absolute;
     height: 1px;
@@ -381,7 +416,7 @@ body {
 #horizontal-distances {
     position: absolute;
     top: 465px;
-    left: 45px;
+    left: 40px;
     width: 435px;
     height: 1px;
 }

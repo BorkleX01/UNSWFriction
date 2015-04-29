@@ -84,7 +84,8 @@ define(function(require) {
 
         $input_box.focusout(greyin);
 
-
+        //$drag_thumb.mouseover(function(){greyout();}).mouseout(function(){greyin();});
+        
     };
 });
 

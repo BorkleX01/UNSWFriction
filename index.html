@@ -24,8 +24,7 @@
 
 <body>
     <div id="body-mask">
-        <div class="car">
-        </div>
+        
 
         <div id="truck-surface" class="rotates-with-slope">
 
@@ -47,10 +46,15 @@
 
             </div>
             <div id="draggable-truck">
+	      <div class="crane-mount" ></div>
+                    <div class="crane-beam" >
+                      <div id="cable"></div>
+                    </div>
                 <div class="truck">
                     <div id="truck-mass-text">Mass
                         <br/><span style="font-weight: 300;"><div id="truck-mass">3000 kg</div></span>
                     </div>
+                    
                 </div>
 
             </div>
@@ -118,7 +122,10 @@
                 </div>
             </div>
         </div>
+        <div class="car">
+        </div>
     </div>
+    
     <%=requireScript %>
 </body>
 

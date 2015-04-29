@@ -1,3 +1,4 @@
+/*globals console, Math, $, require*/
 define(function(require) {
     var $ = require('jquery');
     var ui = require('jquery-ui');
@@ -18,12 +19,23 @@ define(function(require) {
         }
         
     };
+    var updateCarDistance = function(){
+        
+        this.$carSprite.css({'left' : (parseInt(this.horizontalDistancesXPos) - $('.car').width()/2 - 6)+'px'});
+        
+    };
 
     return function(model, capi){
         this.model = model;
         this.capi = capi;
+        this.horizontalDistancesXPos = $('#horizontal-distances').css('left');
+        this.$carSprite = $('.car , .car-greyed');
+        
         model.on('change:carMass', updateCarMass, this);
         capi.on('change:carMass', updateModel, this);
         capi.on('change:showCarMass', hideCarMass, this);
+
+        updateCarDistance();
+        model.on('change:carDistanceFromEdge', updateCarDistance, this);
     };
 });
