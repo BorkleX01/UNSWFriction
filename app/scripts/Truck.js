@@ -4,9 +4,11 @@ define(function(require) {
     var $ = require('jquery');
     var ui = require('jquery-ui');
     var updateHorizontalDistances = require('HorizontalDistances');
+    var moment = require('Moment');
     var slope = require('SlopeAngle');
     var legs = require('SupportLegs');
-
+    var car = require('Car');
+    var friction = require('Friction');
     var updateSlopedDistances = function() {
 
         var truckPos = parseFloat($('#draggable-truck').css('left'));
@@ -35,24 +37,43 @@ define(function(require) {
         this.truckDragThumb.css({"left" : + (truckPos - this.truckDragThumb.width()/2) + "px"});
         
         
-        updateHorizontalDistances(this.model);
-        updateSlopedDistances();
-    };
+        updateHorizontalDistances(this.model, this.capi);
 
-    var updateOnDrag = function(model) {
-        model.setTruckDistanceFromEdge(model.px2m(this.$draggable_truck.position().left)/Math.cos(model.angle()));
         updateSlopedDistances();
-        updateHorizontalDistances(model);
+
+    };
+  
+    var updateOnDrag = function() {
+        this.model.setTruckDistanceFromEdge(this.model.px2m(this.$draggable_truck.position().left)/Math.cos(this.model.angle()));
+        updateSlopedDistances();
+        updateHorizontalDistances(this.model, this.capi);
+        
     };
 
     var dragging = false;
+    var updateModel = function(){
+        this.model.setTruckDistanceFromEdge(this.capi.getTruckDistanceFromEdge());
+        this.model.setTruckMass(this.capi.getTruckMass());
+    };
+    var updateTruckMass = function(){
+        $('#truck-mass').text(this.model.getTruckMass()+" kg");
+         moment(this.model, this.capi);
+    };
+    var hideMassLabel = function(){
 
+        if (this.capi.getShowTruckMass()){
+            $('#truck-mass-text').show();
+        }else{$('#truck-mass-text').hide();}
+        
+    };
     return function(model, capi) {
         this.model = model;
         this.capi = capi;
 
         slope(model, capi);
         legs(model, capi);
+        car(model, capi);
+        friction(model, capi);
         
         var $draggable_truck = $('#draggable-truck');
         this.$draggable_truck = $draggable_truck;
@@ -67,6 +88,7 @@ define(function(require) {
         var $truck_distance_from_edge_line = $('#truck-distance');
         this.$truck_distance_from_edge_line = $truck_distance_from_edge_line;
         this.truckDragThumb = $('#truck-drag-thumb');
+        
 
         updateTruckDistanceFromEdge(model);
 
@@ -86,23 +108,33 @@ define(function(require) {
         });
 
         model.on('change:truckDistanceFromEdge', updateTruckDistanceFromEdge, this);
+        capi.on('change:truckDistanceFromEdge', updateModel, this);
         model.on('change:slopeAngle', updateTruckDistanceFromEdge, this);
+        model.on('change:truckMass', updateTruckMass, this);
+        capi.on('change:truckMass', updateModel, this);
+        capi.on('change:showTruckMass', hideMassLabel, this);
 
-        $truck_to_edge_input.change(function() {
-            model.setTruckDistanceFromEdge($truck_to_edge_input.val());
-        });
-
-        $truck_to_edge_input.focusin(function() {
+        var greyout = function(){
             $('.car').switchClass("car", "car-greyed");
             $('#leg-drag-thumb').switchClass("blue-draggable-thumb-rightleft","blue-draggable-thumb-rightleft-greyed");
             $('#slope-angle-thumb').switchClass("blue-draggable-thumb-updown","blue-draggable-thumb-updown-greyed");
-        });
-
-        $truck_to_edge_input.focusout(function() {
+        };
+        var greyin = function(){
             $('.car-greyed').switchClass("car-greyed", "car");
             $('#leg-drag-thumb').switchClass("blue-draggable-thumb-rightleft-greyed","blue-draggable-thumb-rightleft");
             $('#slope-angle-thumb').switchClass("blue-draggable-thumb-updown-greyed","blue-draggable-thumb-updown");
+        };
+        
+        $truck_to_edge_input.change(function() {
+            model.setTruckDistanceFromEdge($truck_to_edge_input.val());
+            capi.setTruckDistanceFromEdge($truck_to_edge_input.val());
         });
+
+        $truck_to_edge_input.focusin(greyout);
+
+        $truck_to_edge_input.focusout(greyin);
+
+
 
     };
 });

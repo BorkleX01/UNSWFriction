@@ -5,9 +5,10 @@ define (function(require){
     var AppModel = require('AppModel');
     var Capi = require('Capi');
     
-    var truck = require('Truck');
-    var capi = new Capi();
+    
+    
     var slope = require('SlopeAngle');
+    var truck = require('Truck');
 
 	    
     var $body;
@@ -24,9 +25,11 @@ define (function(require){
         
 
 	var model = new AppModel();
+        var capi = new Capi();
 
 	truck(model, capi);
         slope(model, capi);
+        capi.expose(BackboneAdapter);
 
         
     }
@@ -34,6 +37,7 @@ define (function(require){
     function loadInitial(){
         Transporter.addInitialSetupCompleteListener(init);
         Controller.notifyOnReady();
+        //Transporter.notifyOnReady();
     }
 
 

@@ -2,6 +2,7 @@
 define(function(require) {
 
     var $ = require('jquery');
+    var moment = require('Moment');
 
     var horizontal_distance_truck_from_edge = function(model) {
 
@@ -62,7 +63,7 @@ define(function(require) {
 
     };
 
-    return function(model) {
+    return function(model, capi) {
 
         var $horizontal_line = $('#truck-to-car-distance-measure');
         var $draggable_truck = $('#draggable-truck');
@@ -91,9 +92,15 @@ define(function(require) {
         $('#distance-to-leg-label').css({
             "width": +middleNotchPostionRight + "px"
         });
-
+        
         $('#distance-to-leg-label').text(horizontal_distance_truck_from_support(model).toFixed(2));
+        model.setSupportToTruck(horizontal_distance_truck_from_support(model));
         $('#distance-to-car-label').text(horizontal_distance_car_from_support(model).toFixed(2));
+        model.setCarToSupport(horizontal_distance_car_from_support(model));
+
+
+        moment(model, capi);
+        
 
     };
 });
