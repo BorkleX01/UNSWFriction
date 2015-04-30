@@ -16,7 +16,6 @@ define(function(require) {
         capi.setLeftNormalForce(model.getLeftNormalForce().toFixed(2));
         capi.setForcePreventingSliding(model.getForcePreventingSliding().toFixed(2));
 
-        //console.log(model.getCWMoment()+" "+model.getCCWMoment());
         if(model.getCCWMoment() > -1*model.getCWMoment()){
             console.log("warning");
         }else{

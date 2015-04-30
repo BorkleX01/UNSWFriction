@@ -112,7 +112,7 @@ define(function(require) {
 
         $legDist_intput_box.focusout(greyin);
 
-        //this.$draggable_left_leg.mouseover(function(){greyout();}).mouseout(function(){greyin();});
+        
         
     };
 });

@@ -17,8 +17,6 @@ define(function(require) {
     };
     var updateCraneBeamLength = function(){
         var beamLength = this.model.m2px(this.model.getCarDistanceFromEdge())- (this.model.m2px(this.model.getTruckCraneHeight())*Math.sin(this.model.angle()))  + this.$truck_distance_from_edge_line.width();
-        //var beamLength = this.model.m2px(this.model.getCarDistanceFromEdge())- (150*Math.sin(this.model.angle()))  + this.$truck_distance_from_edge_line.width();
-        //var beamLength = this.model.m2px(this.model.getBeamLength());
         var cableLength = this.model.m2px(this.model.getTruckCraneHeight())*Math.cos(this.model.angle());
         $('#cable').css({'height': cableLength+'px'});
 
@@ -155,7 +153,6 @@ define(function(require) {
 
         $truck_to_edge_input.focusout(greyin);
 
-        //$draggable_truck.mouseover(function(){greyout();}).mouseout(function(){greyin();});
 
     };
 });

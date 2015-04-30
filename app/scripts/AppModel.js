@@ -9,7 +9,7 @@ define(function(require) {
             truckDistanceFromEdge: 7.5,
             carDistanceFromEdge: 5,
             pixelScale: 25,
-            cgHeightTruck: 2.5, //to match with graphics should be 1
+            cgHeightTruck: 2.5, 
             truckCraneHeight: 6,
             beamLength: 0,
             carMass: 1000,
