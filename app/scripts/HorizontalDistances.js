@@ -25,17 +25,27 @@ define(function(require) {
     };
 
     var drawDottedLineToLeftSupport = function(model) {
+
         var notch_at_leg_offset = $('#notch-at-leg').offset();
+        
 
         var slope_base_offset = $('#slope-base').offset();
 
         var horizontals_y_positon = $('#horizontal-distances').position();
-
+ 
         var slope_base = $('#slope-base').position();
-
+        
         var offsetHor = notch_at_leg_offset.left - slope_base_offset.left;
+ 
         var offsetVer = Math.tan(model.angle()) * offsetHor;
+ 
         $('#dotted-line-to-leg-below').width(horizontals_y_positon.top - slope_base.top + offsetVer + 3);
+
+        //console.log(notch_at_leg_offset.top-(horizontals_y_positon.top - slope_base.top + offsetVer + 3));
+        //console.log(notch_at_leg_offset.left);
+        model.setMomentCircleXPos(notch_at_leg_offset.left-17);
+        model.setMomentCircleYPos(notch_at_leg_offset.top-(horizontals_y_positon.top - slope_base.top + offsetVer)-15);
+       
     };
 
     
@@ -74,16 +84,17 @@ define(function(require) {
         var hLineWidth = (parseInt($slope_base.css('left')) - parseInt($horizontal_distances.css('left')) + parseInt($draggable_truck.css('left'))) * Math.cos(model.angle()) - 25 * Math.sin(model.angle());
         $horizontal_line.width(hLineWidth);
 
-        drawDottedLineToLeftSupport(model);
-        drawDottedLineToTruckGrill(model);
+        
         
         var middleNotchPlacementRatio = horizontal_distance_truck_from_support(model) / (horizontal_distance_truck_from_support(model) + horizontal_distance_car_from_support(model));
         var middleNotchPostionRight = middleNotchPlacementRatio * $horizontal_line.width();
-
+        
         $('#notch-at-leg').css({
             "right": middleNotchPostionRight + "px"
         });
-
+        drawDottedLineToLeftSupport(model);
+        drawDottedLineToTruckGrill(model);
+        
         var toCarTextFieldWidth = $("#truck-to-car-distance-measure").width() - middleNotchPostionRight;
         $('#distance-to-car-label').css({
             "width": +toCarTextFieldWidth + "px"

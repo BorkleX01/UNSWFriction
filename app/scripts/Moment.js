@@ -1,11 +1,13 @@
 /*globals console, Math, $, require*/
 define(function(require) {
-    
+    var $ = require('jquery');
 
     return function(model, capi){
         this.model = model;
         this.capi = capi;
-                    
+
+        
+        
         capi.setCWMoment(model.getCWMoment().toFixed(2));
 
         capi.setCCWMoment(model.getCCWMoment().toFixed(2));
@@ -17,10 +19,15 @@ define(function(require) {
         capi.setForcePreventingSliding(model.getForcePreventingSliding().toFixed(2));
 
         if(model.getCCWMoment() > -1*model.getCWMoment()){
-            console.log("warning");
+            $('#distress-bubble').show();
         }else{
-            console.log("safe");
+            $('#distress-bubble').hide();
         }
+
+        $('#leg-drag-thumb').css({'left':model.getMomentCircleXPos() +'px', 'top':model.getMomentCircleYPos() +'px'});
+
+
+
         
     };
 });

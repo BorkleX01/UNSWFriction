@@ -23,7 +23,9 @@ define(function(require) {
             truckMoment:0,
             rightNormalForce: 0,
             leftNormalForce: 0,
-            forcePreventingSliding: 0
+            forcePreventingSliding: 0,
+            momentCircleXPos: 0,
+            momentCircleYPos: 0
         },
         getSlopeAngle: function() {
             return this.get('slopeAngle');
@@ -137,9 +139,20 @@ define(function(require) {
         getForcePreventingSliding: function() {
             var force = (this.getRightNormalForce()+this.getLeftNormalForce())*this.getFriction();
              return force;
-        }
+        },
         
-
+        getMomentCircleXPos: function() {
+            return this.get('momentCircleXPos');
+        },
+        setMomentCircleXPos: function(pos) {
+            this.set('momentCircleXPos', pos);
+        },
+        getMomentCircleYPos: function() {
+            return this.get('momentCircleYPos');
+        },
+        setMomentCircleYPos: function(pos) {
+            this.set('momentCircleYPos', pos);
+        }
 
     });
 });

@@ -12,8 +12,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <!--[if IE 9]><meta http-equiv='X-UA-Compatible' content='IE=9'><![endif]-->
 
-    <title>Smart Sparrow - unsw-eng-friction
-        <%=version %>
+    <title>Smart Sparrow - unsw-eng-friction <%=version %>
+        
     </title>
 
     <link rel="stylesheet" href="<%= cssUrl %>">
@@ -24,7 +24,7 @@
 
 <body>
     <div id="body-mask">
-        
+
 
         <div id="truck-surface" class="rotates-with-slope">
 
@@ -46,15 +46,15 @@
 
             </div>
             <div id="draggable-truck">
-	      <div class="crane-mount" ></div>
-                    <div class="crane-beam" >
-                      <div id="cable"></div>
-                    </div>
+                <div class="crane-mount"></div>
+                <div class="crane-beam">
+                    <div id="cable"></div>
+                </div>
                 <div class="truck">
                     <div id="truck-mass-text">Mass
                         <br/><span style="font-weight: 300;"><div id="truck-mass">3000 kg</div></span>
                     </div>
-                    
+                    <div id="distress-bubble"></div>
                 </div>
 
             </div>
@@ -76,45 +76,39 @@
             </div>
             <div id="truck-drag-thumb" class="blue-draggable-thumb-rightleft"></div>
             <div id="support-leg-distance">
-
                 <div id="support-leg-distance-notch-at-truck">
-
                 </div>
                 <div id="support-leg-distance-notch-at-leg">
                     <div id="leg-dotted-line-to-leg-above" class="rotated270">......................................................................</div>
                 </div>
-                <div id="leg-drag-thumb" class="blue-draggable-thumb-rightleft"></div>
-
             </div>
-
-
         </div>
 
         <div id="slope-base">
-            
+
             <div id="slope-angle-thumb" class="blue-draggable-thumb-updown"></div>
         </div>
-
+       
         <div id="car-mass-text">Mass
             <br/><span style="font-weight: 300;"><div id="car-mass">1000 kg</div></span>
         </div>
         <div id="slope-angle-input">
-          <input class="input-box" value="0" id="slope-angle" />
+            <input class="input-box" value="0" id="slope-angle" />
         </div>
         <div id="slope-angle-label">
-          Slope Angle
+            Slope Angle
         </div>
         <div id="friction-input">
-          <input class="input-box" value="0" id="friction" />
-          Friction Coefficient
+            <input class="input-box" value="0" id="friction" /> Friction Coefficient
         </div>
         <div id="horizontal-distances">
-            <div id="truck-to-car-distance-measure">
+            <div id="truck-to-car-distance-measure" >
                 <div id="notch-at-truck">
                     <div id="dotted-line-to-truck-below" class="rotated90">......................................................................</div>
                 </div>
                 <div id="notch-at-leg">
                     <div id="dotted-line-to-leg-below" class="rotated90">......................................................................</div>
+                    
                     <div id="distance-to-leg-label">9999</div>
                 </div>
                 <div id="notch-at-car">
@@ -124,8 +118,14 @@
         </div>
         <div class="car">
         </div>
+         <div id="leg-drag-thumb" class="blue-draggable-thumb-rightleft">
+           <div id="moment-circle" >
+             <canvas id="cw-moment" width="90px" height="90px"></canvas>
+             <canvas id="ccw-moment" width="90px" height="90px"></canvas>
+           </div>
+         </div>
     </div>
-    
+
     <%=requireScript %>
 </body>
 
