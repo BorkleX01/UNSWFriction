@@ -1,4 +1,3 @@
-/*globals console, Math, $, require*/
 define(function(require) {
     var $ = require('jquery');
     var ui = require('jquery-ui');
@@ -34,6 +33,7 @@ define(function(require) {
         $('#footR').css({'left' : parseInt($('#legR').width())-$('#footR').width()});
         this.$legDist_intput_box.val(legPos(this.model).toFixed(1));
     };
+    
     var updateModel = function(){
         this.model.setSideSupportLength(this.capi.getSideSupportLength());
     };
@@ -41,6 +41,7 @@ define(function(require) {
     var dragging = false;
     
     return function(model, capi) {
+
         this.model = model;
         this.capi = capi;
         

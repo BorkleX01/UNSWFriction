@@ -1,4 +1,3 @@
-/*globals checkBrowser, document, console, window, Math, $, require*/
 define(function(require) {
 
     var $ = require('jquery');
@@ -41,8 +40,6 @@ define(function(require) {
  
         $('#dotted-line-to-leg-below').width(horizontals_y_positon.top - slope_base.top + offsetVer + 3);
 
-        //console.log(notch_at_leg_offset.top-(horizontals_y_positon.top - slope_base.top + offsetVer + 3));
-        //console.log(notch_at_leg_offset.left);
         model.setMomentCircleXPos(notch_at_leg_offset.left-17);
         model.setMomentCircleYPos(notch_at_leg_offset.top-(horizontals_y_positon.top - slope_base.top + offsetVer)-15);
        

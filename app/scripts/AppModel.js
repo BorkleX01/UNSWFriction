@@ -1,4 +1,3 @@
-/*globals console, Math, $, require*/
 define(function(require) {
     var Backbone = require('backbone');
     var g = 9.18;
@@ -71,7 +70,7 @@ define(function(require) {
         },
         
         getBeamLength: function() {
-            var length = this.getCarDistanceFromEdge()-(this.getTruckCraneHeight()*Math.sin(this.angle()))+this.getTruckDistanceFromEdge();
+            var length = Number(this.getCarDistanceFromEdge()) - Number(this.getTruckCraneHeight()*Math.sin(this.angle())) + Number(this.getTruckDistanceFromEdge());
             return length;
             
         },

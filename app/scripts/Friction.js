@@ -2,6 +2,7 @@ define(function(require) {
     var $ = require('jquery');
     var ui = require('jquery-ui');
     var updateHorizontalDistances = require('HorizontalDistances');
+
     var updateFriction = function(){
         $('#friction').val(this.model.getFriction());
         updateHorizontalDistances(this.model, this.capi);

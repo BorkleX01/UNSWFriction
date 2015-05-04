@@ -1,4 +1,4 @@
-/*globals console, Math, $, require*/
+
 define(function(require) {
 
     var $ = require('jquery');
@@ -9,14 +9,15 @@ define(function(require) {
     var legs = require('SupportLegs');
     var car = require('Car');
     var friction = require('Friction');
+    var momentCircle = require('MomentCircle');
+   
     var updateSlopedDistances = function() {
-
         var truckPos = parseFloat($('#draggable-truck').css('left'));
         this.$truck_distance_from_edge_line.width(truckPos);
-
     };
+
     var updateCraneBeamLength = function(){
-        var beamLength = this.model.m2px(this.model.getCarDistanceFromEdge())- (this.model.m2px(this.model.getTruckCraneHeight())*Math.sin(this.model.angle()))  + this.$truck_distance_from_edge_line.width();
+        var beamLength = this.model.m2px(this.model.getBeamLength());
         var cableLength = this.model.m2px(this.model.getTruckCraneHeight())*Math.cos(this.model.angle());
         $('#cable').css({'height': cableLength+'px'});
 
@@ -30,7 +31,6 @@ define(function(require) {
             '-o-transform' : 'rotate('+deg+'deg)',
             'transform' : 'rotate('+deg+'deg)'
         });
-        
     };
 
     var updateTruckDistanceFromEdge = function(model) {
@@ -53,9 +53,7 @@ define(function(require) {
         this.$support_legs.css({"left" : + (supportLegPos-60) + "px"});
         this.truckDragThumb.css({"left" : + (truckPos - this.truckDragThumb.width()/2) + "px"});
         
-        
         updateHorizontalDistances(this.model, this.capi);
-
         updateSlopedDistances();
         updateCraneBeamLength();
 
@@ -84,14 +82,16 @@ define(function(require) {
         }else{$('#truck-mass-text').hide();}
         
     };
+    
     return function(model, capi) {
         this.model = model;
         this.capi = capi;
-
         slope(model, capi);
         legs(model, capi);
         car(model, capi);
         friction(model, capi);
+        
+        momentCircle(model);
         
         var $draggable_truck = $('#draggable-truck');
         this.$draggable_truck = $draggable_truck;
@@ -107,8 +107,6 @@ define(function(require) {
         this.$truck_distance_from_edge_line = $truck_distance_from_edge_line;
         this.truckDragThumb = $('#truck-drag-thumb');
         
-        
-
         updateTruckDistanceFromEdge(model);
 
         var slopeDistancePosition = $('#truck-distance').position();

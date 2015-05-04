@@ -18,6 +18,8 @@ define(function(require) {
         var horizontalDistances  = $('body').append('<div id="horizontal-distances"/>');
         var draggableTruck  = $('body').append('<div id="draggable-truck"/>');
         var truckGraphic  = $('#draggable-truck').append('<div class="truck"/>');
+        var cwCanvas  = $('body').append('<canvas id="cw-moment" width="90px" height="90px"></canvas>');
+        var ccwCanvas  = $('body').append('<canvas id="ccw-moment" width="90px" height="90px"></canvas>');
         
         beforeEach(function() {
             model = new AppModel();
