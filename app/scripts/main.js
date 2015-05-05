@@ -15,6 +15,12 @@ define(function(require) {
     var BackboneAdapter = require('api/snapshot/adapters/BackboneAdapter').getInstance();
     var Controller = require('api/snapshot/Controller');
     var Transporter = require('api/snapshot/Transporter').getInstance();
+    window.requestAnimFrame = (function(callback) {
+            return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+                function(callback) {
+                    window.setTimeout(callback, 1000 / 60);
+                };
+        })();
 
     function init() {
         var model = new AppModel();

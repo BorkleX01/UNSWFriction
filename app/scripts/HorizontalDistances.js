@@ -102,8 +102,10 @@ define(function(require) {
         });
         
         $('#distance-to-leg-label').text(horizontal_distance_truck_from_support(model).toFixed(2));
+        
         model.setSupportToTruck(horizontal_distance_truck_from_support(model));
         $('#distance-to-car-label').text(horizontal_distance_car_from_support(model).toFixed(2));
+        
         model.setCarToSupport(horizontal_distance_car_from_support(model));
 
 

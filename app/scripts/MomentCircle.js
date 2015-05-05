@@ -2,12 +2,7 @@
 define(function(require) {
     var env = require('env');
     return function(model) {
-        window.requestAnimFrame = (function(callback) {
-            return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
-                function(callback) {
-                    window.setTimeout(callback, 1000 / 60);
-                };
-        })();
+        
 
         var cwCanvas = document.getElementById('cw-moment');
         var ccwCanvas = document.getElementById('ccw-moment');
