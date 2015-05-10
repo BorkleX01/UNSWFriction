@@ -1,3 +1,4 @@
+/*globals console*/
 define(function(require) {
     var $ = require('jquery');
     var ui = require('jquery-ui');
@@ -33,6 +34,18 @@ define(function(require) {
     var updateModel = function (){
         this.model.setSlopeAngle(this.capi.getSlopeAngle());
     };
+
+    var toggleSlopeAdjustableness = function(){
+        if(this.capi.getAdjustSlope()){
+            this.$drag_thumb.draggable("enable");
+            $('#slope-angle').prop("disable" , false);
+        }else
+        {
+            this.$drag_thumb.draggable("disable");
+            $('#slope-angle').prop("disable" , true);
+        }
+    };
+    
     return function(model, capi) {
         this.model = model;
         this.capi = capi; 
@@ -45,6 +58,7 @@ define(function(require) {
         
         model.on('change:slopeAngle', updateSlopeAngle, this);
         capi.on('change:slopeAngle', updateModel, this);
+        capi.on('change:adjustSlope', toggleSlopeAdjustableness, this);
 
         $('#slope-angle').change(function(){
             model.setSlopeAngle($('#slope-angle').val());
@@ -57,6 +71,8 @@ define(function(require) {
         $drag_thumb.draggable({
             axis: "y",
             drag: function(event, ui){
+                if(ui.position.top > -9){ui.position.top = -9;}
+                if(ui.position.top < -202){ui.position.top = -202;}
                 updateOnDrag(model, capi);
             },
             start: function(event, ui) {
@@ -79,8 +95,6 @@ define(function(require) {
             $('#truck-drag-thumb').switchClass("blue-draggable-thumb-rightleft-greyed","blue-draggable-thumb-rightleft");
         };
         $input_box.focusin(greyout);
-        
-
         $input_box.focusout(greyin);
 
         

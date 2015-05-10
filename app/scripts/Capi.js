@@ -5,6 +5,7 @@ define(function(require) {
             slopeAngle: 30,
             sideSupportLength: 5,
             truckDistanceFromEdge: 7.5,
+            carDistanceFromEdge: 5,
             carMass: 1000,
             showCarMass: true,
             truckMass: 3000,
@@ -17,7 +18,11 @@ define(function(require) {
             truckMoment:0,
             rightNormalForce: 0,
             leftNormalForce: 0,
-            forcePreventingSliding: 0
+            forceCausingSliding: 0,
+            forcePreventingSliding: 0,
+            adjustTruck: true,
+            adjustSlope: true
+
         },
         expose: function(adapter) {
             adapter.expose('slopeAngle', this, {
@@ -28,6 +33,9 @@ define(function(require) {
             });
             adapter.expose('truckDistanceFromEdge', this, {
                 alias: 'Truck.Distance From Edge'
+            });
+            adapter.expose('carDistanceFromEdge', this, {
+                alias: 'Car.Distance From Edge'
             });
             adapter.expose('truckMass', this, {
                 alias: 'Truck.Mass'
@@ -68,6 +76,15 @@ define(function(require) {
             adapter.expose('forcePreventingSliding', this, {
                 alias: 'Data.Force Preventing Sliding'
             });
+            adapter.expose('forceCausingSliding', this, {
+                alias: 'Data.Force Causing Sliding'
+            });
+            adapter.expose('adjustTruck', this, {
+                alias: 'Options.Adjust Truck'
+            });
+            adapter.expose('adjustSlope', this, {
+                alias: 'Options.Adjust Slope'
+            });
         },
         getSlopeAngle: function() {
             return this.get('slopeAngle');
@@ -86,6 +103,12 @@ define(function(require) {
         },
         setTruckDistanceFromEdge: function(distance) {
             this.set('truckDistanceFromEdge', distance);
+        },
+        getCarDistanceFromEdge: function() {
+            return Number(this.get('carDistanceFromEdge')).toFixed(2);
+        },
+        setCarDistanceFromEdge: function(distance) {
+            this.set('carDistanceFromEdge', distance);
         },
         px2m: function(pixels) {
             return pixels/this.get('pixelScale');
@@ -174,8 +197,23 @@ define(function(require) {
         getForcePreventingSliding: function() {
             return this.get('forcePreventingSliding');
         },
+        setForceCausingSliding: function(force) {
+            this.set('forceCausingSliding', force);
+        },
         setForcePreventingSliding: function(force) {
             this.set('forcePreventingSliding', force);
         },
+        getAdjustTruck: function() {
+            return this.get('adjustTruck');
+        },
+        setAdjustTruck: function(adjustable) {
+            this.set('adjustTruck', adjustable);
+        },
+        getAdjustSlope: function() {
+            return this.get('adjustSlope');
+        },
+        setAdjustSlope: function(adjustable) {
+            this.set('adjustSlope', adjustable);
+        }
     });
 });

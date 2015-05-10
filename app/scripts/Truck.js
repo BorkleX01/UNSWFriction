@@ -1,4 +1,4 @@
-
+/*globals console*/
 define(function(require) {
 
     var $ = require('jquery');
@@ -63,13 +63,14 @@ define(function(require) {
         this.model.setTruckDistanceFromEdge(this.model.px2m(this.$draggable_truck.position().left)/Math.cos(this.model.angle()));
         updateSlopedDistances();
         updateHorizontalDistances(this.model, this.capi);
-        
     };
 
     var dragging = false;
+    
     var updateModel = function(){
         this.model.setTruckDistanceFromEdge(this.capi.getTruckDistanceFromEdge());
         this.model.setTruckMass(this.capi.getTruckMass());
+        updateCraneBeamLength();
     };
     var updateTruckMass = function(){
         $('#truck-mass').text(this.model.getTruckMass()+" kg");
@@ -82,7 +83,22 @@ define(function(require) {
         }else{$('#truck-mass-text').hide();}
         
     };
-    
+
+    var toggleTruckInteraction = function() {
+        if (this.capi.getAdjustTruck()) {
+            this.$draggable_truck.draggable("enable");
+            $('#draggable-left-leg').draggable("enable");
+            this.$truck_distance_input.prop("disabled" , false);
+            
+        } else {
+            this.$draggable_truck.draggable("disable");
+            $('#draggable-left-leg').draggable("disable");
+            this.$truck_distance_input.prop("disabled", true);
+        }
+    };
+
+
+
     return function(model, capi) {
         this.model = model;
         this.capi = capi;
@@ -114,6 +130,9 @@ define(function(require) {
         $draggable_truck.draggable({
             axis: "x",
             drag: function(event, ui) {
+                var legLength = model.m2px(model.getSideSupportLength());
+                if(ui.position.left < legLength){ui.position.left = legLength;}
+                if(ui.position.left > 290){ui.position.left = 290;}
                 updateOnDrag(model);
             },
             start: function(event, ui) {
@@ -121,15 +140,17 @@ define(function(require) {
             },
             stop: function(event, ui) {
                 dragging = false;
-            }
+            },
         });
-
+        
         model.on('change:truckDistanceFromEdge', updateTruckDistanceFromEdge, this);
         capi.on('change:truckDistanceFromEdge', updateModel, this);
         model.on('change:slopeAngle', updateTruckDistanceFromEdge, this);
         model.on('change:truckMass', updateTruckMass, this);
         capi.on('change:truckMass', updateModel, this);
         capi.on('change:showTruckMass', hideMassLabel, this);
+        capi.on('change:adjustTruck', toggleTruckInteraction, this);
+        capi.on('change:carDistanceFromEdge', updateModel, this);
 
         var greyout = function(){
             $('.car').switchClass("car", "car-greyed");

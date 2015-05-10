@@ -1,3 +1,4 @@
+/*globals console*/
 define(function(require) {
     var $ = require('jquery');
     var ui = require('jquery-ui');
@@ -17,8 +18,6 @@ define(function(require) {
         model.setSideSupportLength(legPos(model));
         capi.setSideSupportLength(legPos(model));
     };
-    
-    
     
     var updateSideSupportLength = function(){
         updateHorizontalDistances(this.model, this.capi);
@@ -81,6 +80,11 @@ define(function(require) {
         $draggable_left_leg.draggable({
             axis: "x",
             drag: function(event, ui){
+                var truckDist = model.m2px(model.getTruckDistanceFromEdge());
+                var legLength = model.m2px(model.getSideSupportLength());
+                var leftLimit = -1*(truckDist-truckWidth);
+                if(ui.position.left < leftLimit){ui.position.left = leftLimit;}
+                if(ui.position.left > 0){ui.position.left = 0;}
                 updateOnDrag(model, capi);
             },
             start: function(event, ui) {
@@ -88,7 +92,7 @@ define(function(require) {
             },
             stop: function(event, ui) {
                 dragging = false;
-            }
+            },
         });
         var greyout = function(){
             $('.truck').switchClass("truck", "truck-greyed");
@@ -110,7 +114,6 @@ define(function(require) {
         
         $legDist_intput_box.focusin(greyout);
         
-
         $legDist_intput_box.focusout(greyin);
 
         

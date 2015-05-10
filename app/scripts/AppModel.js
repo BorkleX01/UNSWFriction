@@ -3,7 +3,7 @@ define(function(require) {
     var g = 9.18;
     return Backbone.Model.extend({
         defaults: {
-            slopeAngle: 30,
+            slopeAngle: 15,
             sideSupportLength: 5,
             truckDistanceFromEdge: 7.5,
             carDistanceFromEdge: 5,
@@ -22,6 +22,7 @@ define(function(require) {
             truckMoment:0,
             rightNormalForce: 0,
             leftNormalForce: 0,
+            forceCausingSliding: 0,
             forcePreventingSliding: 0,
             momentCircleXPos: 0,
             momentCircleYPos: 0
@@ -134,7 +135,10 @@ define(function(require) {
             var force = this.getCarMass()*g*Math.cos(this.angle())+this.getTruckMass()*g*Math.cos(this.angle())-this.getRightNormalForce();
             return force;
         },
-        
+        getForceCausingSliding: function() {
+            var force = (this.getCarMass()+this.getTruckMass())*g*Math.sin(this.angle());
+            return force;
+        },
         getForcePreventingSliding: function() {
             var force = (this.getRightNormalForce()+this.getLeftNormalForce())*this.getFriction();
              return force;

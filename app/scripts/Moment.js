@@ -21,6 +21,8 @@ define(function(require) {
 
         capi.setForcePreventingSliding(Number(model.getForcePreventingSliding().toFixed(2)));
 
+        capi.setForceCausingSliding(Number(model.getForceCausingSliding().toFixed(2)));
+
         if(model.getCCWMoment() > -1*model.getCWMoment()){
             $('#distress-bubble').toggle(true);
         }else{

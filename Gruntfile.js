@@ -269,6 +269,7 @@ module.exports = function(grunt) {
             },
             "code": {
                 "files": [
+                    "index.html",
                     "app/**",
                     "!app/styles/**",
                     "test/**/*.js"
@@ -347,7 +348,8 @@ module.exports = function(grunt) {
                         "jsUrl": "../../bower_components/requirejs/require.js",
                         "cssUrl": "css/<%= projName %>.css",
                         "version": "- v<%= projVersion %>",
-                        "requireScript": "<%= requireScript %>"
+                        "requireScript": "<%= requireScript %>",
+                        "imagePath": "../assets/<%= hash %>"
                     }
                 }
             },
@@ -534,13 +536,14 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-bless");
     grunt.loadNpmTasks("grunt-template-file");
     grunt.loadNpmTasks("grunt-parallel");
-    grunt.loadNpmTasks("grunt-build-generator");
+    grunt.loadNpmTasks("grunt-generator");
 
 
     // Define grunt tasks
     var watchToUse = 'parallel:' + (process.env.gruntWatch || '') + 'watch';
     grunt.registerTask("localTemplate", ["templateFile:local","templateFile:localCSS","templateFile:localEnvironment"]);
     grunt.registerTask("local", ["clean:local","jshint","copy:localCompile","less:local","bless:local","localTemplate","mocha:dot"]);
+    //grunt.registerTask("local", ["clean:local","jshint","copy:localCompile","less:local","bless:local","localTemplate"]);
     grunt.registerTask("localStyle", ["clean:local","copy:localCompile","less:local","bless:local","localTemplate"]);
     grunt.registerTask("localCopyOnly", ["clean:local","copy:localCompile","less:local","bless:local","localTemplate"]);
     grunt.registerTask("localTestFirst", ["clean:local","copy:localCompile","less:local","bless:local","localTemplate","mocha:dot","jshint"]);
@@ -548,6 +551,6 @@ module.exports = function(grunt) {
     grunt.registerTask("default", ["local",watchToUse]);
     grunt.registerTask("copyOnlyWatch", ["localCopyOnly","parallel:copywatch"]);
     grunt.registerTask("tddWatch", ["localTestFirst","parallel:tddwatch"]);
-    grunt.registerTask("build", ["gruntGenerator"]);
+    grunt.registerTask("build", ["grunt-generator"]);
 
 };

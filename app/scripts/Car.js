@@ -1,6 +1,8 @@
+/*globals console*/
 define(function(require) {
     var $ = require('jquery');
     var ui = require('jquery-ui');
+    var updateHorizontalDistances = require('HorizontalDistances');
     var moment = require('Moment');
     var updateCarMass = function(){
         $('#car-mass').text(this.model.getCarMass() + ' kg');
@@ -8,6 +10,7 @@ define(function(require) {
     };
     var updateModel = function(){
         this.model.setCarMass(this.capi.getCarMass());
+        this.model.setCarDistanceFromEdge(Number(this.capi.getCarDistanceFromEdge()));
     };
     var hideCarMass = function(){
 
@@ -19,10 +22,15 @@ define(function(require) {
         
     };
     var updateCarDistance = function(){
-        
+
+        var carLeftPosX = 165 - this.model.m2px(this.model.getCarDistanceFromEdge());
+        this.horizontalDistancesXPos = carLeftPosX+"px";
+        $('#horizontal-distances').css({"left" : carLeftPosX+"px"});
         this.$carSprite.css({'left' : (parseInt(this.horizontalDistancesXPos) - $('.car').width()/2 - 6)+'px'});
+        updateHorizontalDistances(this.model, this.capi);
         
     };
+   
 
     return function(model, capi){
         this.model = model;
@@ -36,5 +44,6 @@ define(function(require) {
 
         updateCarDistance();
         model.on('change:carDistanceFromEdge', updateCarDistance, this);
+        capi.on('change:carDistanceFromEdge', updateModel, this);
     };
 });
