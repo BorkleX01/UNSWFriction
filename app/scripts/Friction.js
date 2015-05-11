@@ -29,6 +29,8 @@ define(function(require) {
         capi.on('change:friction', updateModel, this);
         capi.on('change:showFriction', hideFrictionInput, this);
         $('#friction').change(function(){
+            if($('#friction').val()<0.04){$('#friction').val(0.04);}
+            if($('#friction').val()>0.99){$('#friction').val(0.99);}
             model.setFriction($('#friction').val());
             capi.setFriction($('#friction').val());
             
