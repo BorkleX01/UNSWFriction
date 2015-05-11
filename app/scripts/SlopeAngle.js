@@ -38,11 +38,11 @@ define(function(require) {
     var toggleSlopeAdjustableness = function(){
         if(this.capi.getAdjustSlope()){
             this.$drag_thumb.draggable("enable");
-            $('#slope-angle').prop("disable" , false);
+            $('#slope-angle').prop("disabled" , false);
         }else
         {
             this.$drag_thumb.draggable("disable");
-            $('#slope-angle').prop("disable" , true);
+            $('#slope-angle').prop("disabled" , true);
         }
     };
     
@@ -67,12 +67,13 @@ define(function(require) {
 
         var $input_box = $('#slope-angle');
         this.$input_box = $input_box;
-        
+        var lowerLimit = -9;
+        var upperLimit = -202;
         $drag_thumb.draggable({
             axis: "y",
             drag: function(event, ui){
-                if(ui.position.top > -9){ui.position.top = -9;}
-                if(ui.position.top < -202){ui.position.top = -202;}
+                if(ui.position.top > lowerLimit){ui.position.top = lowerLimit;}
+                if(ui.position.top < upperLimit){ui.position.top = upperLimit;}
                 updateOnDrag(model, capi);
             },
             start: function(event, ui) {

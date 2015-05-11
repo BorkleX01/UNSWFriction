@@ -88,12 +88,14 @@ define(function(require) {
         if (this.capi.getAdjustTruck()) {
             this.$draggable_truck.draggable("enable");
             $('#draggable-left-leg').draggable("enable");
-            this.$truck_distance_input.prop("disabled" , false);
+            $('#truck-to-edge').prop("disabled" , false);
+            $('#support-leg-from-truck').prop("disabled" , false);
             
         } else {
             this.$draggable_truck.draggable("disable");
             $('#draggable-left-leg').draggable("disable");
-            this.$truck_distance_input.prop("disabled", true);
+            $('#truck-to-edge').prop("disabled", true);
+            $('#support-leg-from-truck').prop("disabled" , true);
         }
     };
 
@@ -126,13 +128,13 @@ define(function(require) {
         updateTruckDistanceFromEdge(model);
 
         var slopeDistancePosition = $('#truck-distance').position();
-
+        var maxTruckDistPX = 290;
         $draggable_truck.draggable({
             axis: "x",
             drag: function(event, ui) {
                 var legLength = model.m2px(model.getSideSupportLength());
                 if(ui.position.left < legLength){ui.position.left = legLength;}
-                if(ui.position.left > 290){ui.position.left = 290;}
+                if(ui.position.left > maxTruckDistPX){ui.position.left = maxTruckDistPX;}
                 updateOnDrag(model);
             },
             start: function(event, ui) {

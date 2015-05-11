@@ -21,12 +21,13 @@ define(function(require) {
         }
         
     };
+    var carPlacementAestheticShim = 6;
     var updateCarDistance = function(){
-
-        var carLeftPosX = 165 - this.model.m2px(this.model.getCarDistanceFromEdge());
+        
+        var carLeftPosX = $('#slope-base').position().left - this.model.m2px(this.model.getCarDistanceFromEdge());
         this.horizontalDistancesXPos = carLeftPosX+"px";
         $('#horizontal-distances').css({"left" : carLeftPosX+"px"});
-        this.$carSprite.css({'left' : (parseInt(this.horizontalDistancesXPos) - $('.car').width()/2 - 6)+'px'});
+        this.$carSprite.css({'left' : (parseInt(this.horizontalDistancesXPos) - $('.car').width()/2 - carPlacementAestheticShim)+'px'});
         updateHorizontalDistances(this.model, this.capi);
         
     };
