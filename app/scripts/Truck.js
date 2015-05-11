@@ -40,6 +40,7 @@ define(function(require) {
         this.capi.setTruckDistanceFromEdge(distance);
 
         if (!dragging) {
+
             this.$draggable_truck.css({
                 left: this.model.m2px(distance)
             });
@@ -128,7 +129,7 @@ define(function(require) {
         updateTruckDistanceFromEdge(model);
 
         var slopeDistancePosition = $('#truck-distance').position();
-        var maxTruckDistPX = 290;
+        var maxTruckDistPX = 312.5;
         $draggable_truck.draggable({
             axis: "x",
             drag: function(event, ui) {
@@ -166,6 +167,9 @@ define(function(require) {
         };
         
         $truck_to_edge_input.change(function() {
+            if ($truck_to_edge_input.val()>12.5){$truck_to_edge_input.val(12.5);}
+            if ($truck_to_edge_input.val()<model.getSideSupportLength()){$truck_to_edge_input.val(model.getSideSupportLength());}
+
             model.setTruckDistanceFromEdge($truck_to_edge_input.val());
             capi.setTruckDistanceFromEdge($truck_to_edge_input.val());
         });

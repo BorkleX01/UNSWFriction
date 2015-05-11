@@ -61,6 +61,8 @@ define(function(require) {
         capi.on('change:adjustSlope', toggleSlopeAdjustableness, this);
 
         $('#slope-angle').change(function(){
+            if($('#slope-angle').val() > 30){$('#slope-angle').val(30);}
+            if($('#slope-angle').val() < 0){$('#slope-angle').val(0);}
             model.setSlopeAngle($('#slope-angle').val());
             capi.setSlopeAngle($('#slope-angle').val());
         });
