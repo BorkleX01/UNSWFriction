@@ -1,3 +1,4 @@
+/*globals console*/
 define(function(require) {
     var Backbone = require('backbone');
     var g = 9.18;
@@ -25,7 +26,10 @@ define(function(require) {
             forceCausingSliding: 0,
             forcePreventingSliding: 0,
             momentCircleXPos: 0,
-            momentCircleYPos: 0
+            momentCircleYPos: 0,
+            horDistCarSupport: 0,
+            maxCarMass: 0,
+            minFrictionCoeff: 0
         },
         getSlopeAngle: function() {
             return this.get('slopeAngle');
@@ -143,7 +147,15 @@ define(function(require) {
             var force = (this.getRightNormalForce()+this.getLeftNormalForce())*this.getFriction();
              return force;
         },
-        
+        getMaxCarMass: function() {
+            var mass = -1*this.getCWMoment()/(this.getHorDistCarSupport()*g);
+            
+            return mass;
+        },
+        getMinFrictionCoeff: function() {
+            var coeff = this.getForceCausingSliding()/(this.getRightNormalForce() + this.getLeftNormalForce());
+            return coeff;
+        },
         getMomentCircleXPos: function() {
             return this.get('momentCircleXPos');
         },
@@ -155,6 +167,12 @@ define(function(require) {
         },
         setMomentCircleYPos: function(pos) {
             this.set('momentCircleYPos', pos);
+        },
+        getHorDistCarSupport: function() {
+            return this.get('horDistCarSupport');
+        },
+        setHorDistCarSupport: function(dist) {
+            this.set('horDistCarSupport', dist);
         }
 
     });

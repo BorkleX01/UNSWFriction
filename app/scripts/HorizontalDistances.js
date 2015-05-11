@@ -20,8 +20,12 @@ define(function(require) {
     };
 
     var horizontal_distance_car_from_support = function(model) {
+        
+        var horDistCarSupport = model.getCarDistanceFromEdge() + horizontal_distance_left_support_from_edge(model);
 
-        return model.getCarDistanceFromEdge() + horizontal_distance_left_support_from_edge(model);
+        model.setHorDistCarSupport(horDistCarSupport);
+        
+        return horDistCarSupport;
     };
 
     var drawDottedLineToLeftSupport = function(model) {

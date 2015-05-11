@@ -1,3 +1,4 @@
+/*globals console*/
 define(function(require) {
     var $ = require('jquery');
 
@@ -23,15 +24,17 @@ define(function(require) {
 
         capi.setForceCausingSliding(Number(model.getForceCausingSliding().toFixed(2)));
 
-        if(model.getCCWMoment() > -1*model.getCWMoment()){
+        capi.setMaxCarMass(Number(model.getMaxCarMass()).toFixed(2));
+
+        capi.setMinFrictionCoeff(Number(model.getMinFrictionCoeff()).toFixed(2));
+        
+        if(((model.getCCWMoment() > -1*model.getCWMoment()) || (model.getForceCausingSliding() > model.getForcePreventingSliding())) && capi.getShowSpeechbubble()){
             $('#distress-bubble').toggle(true);
         }else{
             $('#distress-bubble').toggle(false);
         }
 
         $('#leg-drag-thumb').css({'left':model.getMomentCircleXPos() +'px', 'top':model.getMomentCircleYPos() +'px'});
-
-
 
         
     };

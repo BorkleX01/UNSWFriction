@@ -21,7 +21,11 @@ define(function(require) {
             forceCausingSliding: 0,
             forcePreventingSliding: 0,
             adjustTruck: true,
-            adjustSlope: true
+            adjustSlope: true,
+            maxCarMass: 0,
+            minFrictionCoeff: 0,
+            showSpeechbubble: true,
+            showMomentArrows: true
 
         },
         expose: function(adapter) {
@@ -84,6 +88,18 @@ define(function(require) {
             });
             adapter.expose('adjustSlope', this, {
                 alias: 'Options.Adjust Slope'
+            });
+            adapter.expose('maxCarMass', this, {
+                alias: 'Data.Max Car Mass'
+            });
+            adapter.expose('minFrictionCoeff', this, {
+                alias: 'Data.Min Coefficient of Friction'
+            });
+            adapter.expose('showSpeechbubble', this, {
+                alias: 'Options.Show Speech Bubble'
+            });
+            adapter.expose('showMomentArrows', this, {
+                alias: 'Options.Show Moment Arrows'
             });
         },
         getSlopeAngle: function() {
@@ -214,6 +230,30 @@ define(function(require) {
         },
         setAdjustSlope: function(adjustable) {
             this.set('adjustSlope', adjustable);
+        },
+        getMaxCarMass: function() {
+            return this.get('maxCarMass');
+        },
+        setMaxCarMass: function(mass) {
+            this.set('maxCarMass', mass);
+        },
+        getMinFrictionCoeff: function() {
+            return this.get('minFrictionCoeff');
+        },
+        setMinFrictionCoeff: function(coeff) {
+            this.set('minFrictionCoeff', coeff);
+        },
+        getShowSpeechbubble: function() {
+            return this.get('showSpeechbubble');
+        },
+        setShowSpeechbubble: function(show) {
+            this.set('showSpeechbubble', show);
+        },
+        getShowMomentArrows: function() {
+            return this.get('showMomentArrows');
+        },
+        setShowMomentArrows: function(show) {
+            this.set('showMomentArrows', show);
         }
     });
 });

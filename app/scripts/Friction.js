@@ -2,6 +2,7 @@ define(function(require) {
     var $ = require('jquery');
     var ui = require('jquery-ui');
     var updateHorizontalDistances = require('HorizontalDistances');
+    var moment = require('Moment');
 
     var updateFriction = function(){
         $('#friction').val(this.model.getFriction());
@@ -19,6 +20,19 @@ define(function(require) {
         }
         
     };
+    var updateMoment = function(){
+        moment(this.model, this.capi);
+    };
+    var toggleMomentCircle = function(){
+        if (this.capi.getShowMomentArrows())
+        {
+            $('#moment-circle').toggle(true);
+        }
+        else
+        {
+            $('#moment-circle').toggle(false);
+        }
+    };
 
     return function(model, capi){
         this.model = model;
@@ -28,6 +42,9 @@ define(function(require) {
         model.on('change:friction', updateFriction, this);
         capi.on('change:friction', updateModel, this);
         capi.on('change:showFriction', hideFrictionInput, this);
+        capi.on('change:showSpeechbubble', updateMoment, this);
+        capi.on('change:showMomentArrows', toggleMomentCircle, this);
+        
         $('#friction').change(function(){
             if($('#friction').val()<0.04){$('#friction').val(0.04);}
             if($('#friction').val()>0.99){$('#friction').val(0.99);}
