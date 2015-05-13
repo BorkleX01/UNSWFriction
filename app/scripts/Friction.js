@@ -44,10 +44,11 @@ define(function(require) {
         capi.on('change:showFriction', hideFrictionInput, this);
         capi.on('change:showSpeechbubble', updateMoment, this);
         capi.on('change:showMomentArrows', toggleMomentCircle, this);
-        
+        var lowerLimit = 0.04;
+        var upperLimit = 0.99;
         $('#friction').change(function(){
-            if($('#friction').val()<0.04){$('#friction').val(0.04);}
-            if($('#friction').val()>0.99){$('#friction').val(0.99);}
+            if($('#friction').val()<lowerLimit){$('#friction').val(lowerLimit);}
+            if($('#friction').val()>upperLimit){$('#friction').val(upperLimit);}
             model.setFriction($('#friction').val());
             capi.setFriction($('#friction').val());
             

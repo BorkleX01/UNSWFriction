@@ -106,7 +106,11 @@ define(function(require) {
             $('#slope-angle-thumb').switchClass("blue-draggable-thumb-updown-greyed","blue-draggable-thumb-updown");
             $('#truck-drag-thumb').switchClass("blue-draggable-thumb-rightleft-greyed","blue-draggable-thumb-rightleft");
         };
+        var lowerLimit = 2.2;
+        var upperLimit = function(){return model.getTruckDistanceFromEdge();};
         $legDist_intput_box.change(function(){
+            if ($legDist_intput_box.val() < lowerLimit){$legDist_intput_box.val(lowerLimit);}
+            if ($legDist_intput_box.val() > upperLimit()){$legDist_intput_box.val(upperLimit());}
             model.setSideSupportLength($legDist_intput_box.val());
             capi.setSideSupportLength($legDist_intput_box.val());
             
