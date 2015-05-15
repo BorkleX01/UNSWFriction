@@ -107,7 +107,7 @@ define(function(require) {
             $('#truck-drag-thumb').switchClass("blue-draggable-thumb-rightleft-greyed","blue-draggable-thumb-rightleft");
         };
         var lowerLimit = 2.2;
-        var upperLimit = function(){return model.getTruckDistanceFromEdge();};
+        var upperLimit = function(){return Number(model.getTruckDistanceFromEdge());};
         $legDist_intput_box.change(function(){
             if ($legDist_intput_box.val() < lowerLimit){$legDist_intput_box.val(lowerLimit);}
             if ($legDist_intput_box.val() > upperLimit()){$legDist_intput_box.val(upperLimit());}
