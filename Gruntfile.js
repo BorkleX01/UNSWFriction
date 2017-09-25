@@ -549,6 +549,7 @@ module.exports = function(grunt) {
     grunt.registerTask("localTestFirst", ["clean:local","copy:localCompile","less:local","bless:local","localTemplate","mocha:dot","jshint"]);
     grunt.registerTask("rel", ["clean","jshint","copy:localCompile","copy:release","less","bless","templateFile","mocha:bamboo","requirejs","copy:prodVersion","mocha:bamboo"]);
     grunt.registerTask("default", ["local",watchToUse]);
+    //grunt.registerTask("rel", ["local",watchToUse]);
     grunt.registerTask("copyOnlyWatch", ["localCopyOnly","parallel:copywatch"]);
     grunt.registerTask("tddWatch", ["localTestFirst","parallel:tddwatch"]);
     grunt.registerTask("build", ["grunt-generator"]);
